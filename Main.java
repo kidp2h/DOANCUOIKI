@@ -4,14 +4,17 @@ import java.io.Console;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
+
+import javax.sound.sampled.AudioPermission;
+
 import java.io.File;
 
-import DOANCUOIKI.quanly.QuanLyNhanSu;
+import DOANCUOIKI.management.PersonManagement;
 import DOANCUOIKI.util.Color;
 
 public class Main {
   // phuong thuc static dc goi ma ko tao mot instance
-  public static NhanSu MenuDangNhap(Scanner input) {
+  public static Person MenuDangNhap(Scanner input) {
     Console csl = System.console();
     while (true) {
       clearConsole();
@@ -37,7 +40,7 @@ public class Main {
           char[] pwd = csl.readPassword();
           String matKhau = String.valueOf(pwd).trim();
 
-          NhanSu isLogin = QuanLyNhanSu.Instance().KiemTraTaiKhoan(taiKhoan, matKhau);
+          Person isLogin = PersonManagement.Instance().CheckAccount(taiKhoan, matKhau);
 
           if (isLogin != null) {
             return isLogin;
@@ -66,18 +69,18 @@ public class Main {
     }
   }
 
-  public static boolean Menu(Scanner input, NhanSu nhanSu) {
+  public static boolean Menu(Scanner input, Person person) {
     while (true) {
       clearConsole();
       String chucVu;
-      if (nhanSu instanceof QuanLy)
+      if (person instanceof Manager)
         chucVu = "Quan Ly";
       else
         chucVu = "Nhan Vien";
 
       System.out.print(Color.BLUE_BACKGROUND);
       System.out.println("======== UNG DUNG QUAN LY BAN HANG ========" + Color.RESET);
-      System.out.println("Tai khoan: " + nhanSu.getTaiKhoan() + "\tChuc vu: " + chucVu);
+      System.out.println("Tai khoan: " + person.getUsername() + "\tChuc vu: " + chucVu);
       System.out.println("===========================================");
       System.out.println("||  1. Ban Hang                          ||");
       System.out.println("||  2. Quan Ly                           ||");
@@ -93,7 +96,7 @@ public class Main {
           break;
 
         case "2":
-          if (nhanSu instanceof QuanLy)
+          if (person instanceof Manager)
             MenuQuanLy(input);
           else {
             clearConsole();
@@ -285,7 +288,7 @@ public class Main {
               "\nSTT\tTK  \t HO VA TEN\t   TUOI\t   GT\t  SODIENTHOAI\t  LUONG \tLUONG+\t   CHUC VU\n" +
               Color.Line(100, '-'));
 
-          QuanLyNhanSu.Instance().XuatDanhSach();
+          PersonManagement.Instance().PrintList();
 
           System.out.println(Color.Line(100, '-'));
           System.out.print(Color.RESET);
@@ -351,11 +354,11 @@ public class Main {
           String soDienThoai = input.nextLine();
 
           System.out.print(Color.YELLOW + "Luong co ban: " + Color.RESET);
-          double luongCoBan = input.nextDouble();
+          double salary = input.nextDouble();
           input.nextLine();
 
-          NhanSu nhanvien = new NhanVien(taiKhoan, matKhau, hoTen, tuoi, gioiTinh, soDienThoai, luongCoBan);
-          QuanLyNhanSu.Instance().Them(nhanvien);
+          Person nhanvien = new Staff(taiKhoan, matKhau, hoTen, tuoi, gioiTinh, soDienThoai, salary);
+          PersonManagement.Instance().Add(nhanvien);
 
           System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
           System.out.print("\n~~> DA THEM THANH CONG !!! <~~" + Color.RESET);
@@ -392,15 +395,15 @@ public class Main {
           String soDienThoai = input.nextLine();
 
           System.out.print(Color.YELLOW + "Luong co ban: " + Color.RESET);
-          double luongCoBan = input.nextDouble();
+          double salary = input.nextDouble();
           input.nextLine();
 
           System.out.print(Color.YELLOW + "Luong thuong: " + Color.RESET);
-          double luongThuong = input.nextDouble();
+          double salaryBonus = input.nextDouble();
           input.nextLine();
 
-          NhanSu quanly = new QuanLy(taiKhoan, matKhau, hoTen, tuoi, gioiTinh, soDienThoai, luongCoBan, luongThuong);
-          QuanLyNhanSu.Instance().Them(quanly);
+          Person quanly = new Manager(taiKhoan, matKhau, hoTen, tuoi, gioiTinh, soDienThoai, salary, salaryBonus);
+          PersonManagement.Instance().Add(quanly);
 
           System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
           System.out.print("\n~~> DA THEM THANH CONG !!! <~~" + Color.RESET);
@@ -432,7 +435,7 @@ public class Main {
           "\nSTT\tTK  \t HO VA TEN\t   TUOI\t   GT\t  SODIENTHOAI\t  LUONG \tLUONG+\t   CHUC VU\n" +
           Color.Line(100, '-'));
 
-      QuanLyNhanSu.Instance().XuatDanhSach();
+      PersonManagement.Instance().PrintList();
 
       System.out.println(Color.Line(100, '-'));
       System.out.print(Color.RESET);
@@ -446,7 +449,7 @@ public class Main {
           return;
         }
         default: {
-          QuanLyNhanSu.Instance().Xoa(id - 1);
+          PersonManagement.Instance().Delete(id - 1);
 
           System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
           System.out.print("\n~~> DA XOA THANH CONG !!! <~~" + Color.RESET);
@@ -472,7 +475,7 @@ public class Main {
           "\nSTT\tTK  \t HO VA TEN\t   TUOI\t   GT\t  SODIENTHOAI\t  LUONG \tLUONG+\t   CHUC VU\n" +
           Color.Line(100, '-'));
 
-      QuanLyNhanSu.Instance().XuatDanhSach();
+      PersonManagement.Instance().PrintList();
 
       System.out.println(Color.Line(100, '-'));
       System.out.print(Color.RESET);
@@ -485,17 +488,17 @@ public class Main {
       if (id == 0)
         return;
 
-      NhanSu nhanSu = QuanLyNhanSu.Instance().LayList().get(id - 1);
-      double luongCoBan = 0;
-      double luongThuong = 0;
+      Person person = PersonManagement.Instance().GetList().get(id - 1);
+      double salary = 0;
+      double salaryBonus = 0;
 
-      if (nhanSu instanceof QuanLy) {
-        QuanLy quanLy = (QuanLy) nhanSu;
-        luongCoBan = quanLy.getLuongCoBan();
-        luongThuong = quanLy.getLuongThuong();
+      if (person instanceof Manager) {
+        Manager quanLy = (Manager) person;
+        salary = quanLy.getSalary();
+        salaryBonus = quanLy.getSalaryBonus();
       } else {
-        NhanVien nhanVien = (NhanVien) nhanSu;
-        luongCoBan = nhanVien.getLuongCoBan();
+        Staff nhanVien = (Staff) person;
+        salary = nhanVien.getSalary();
       }
 
       while (true) {
@@ -503,13 +506,13 @@ public class Main {
         System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
         System.out.println("======== THONG TIN NHAN SU MUON SUA ========" + Color.RESET);
         System.out.println("============================================\n"
-            + "||" + Color.GREEN + "  Tai khoan: " + Color.YELLOW + nhanSu.getTaiKhoan() + "\n" + Color.RESET
-            + "||" + Color.GREEN + "  1. Ho va ten: " + Color.YELLOW + nhanSu.getHoTen() + "\n" + Color.RESET
-            + "||" + Color.GREEN + "  2. Tuoi: " + Color.YELLOW + nhanSu.getTuoi() + "\n" + Color.RESET
-            + "||" + Color.GREEN + "  3. Gioi tinh: " + Color.YELLOW + nhanSu.getGioiTinh() + "\n" + Color.RESET
-            + "||" + Color.GREEN + "  4. So dien thoai: " + Color.YELLOW + nhanSu.getSoDienThoai() + "\n" + Color.RESET
-            + "||" + Color.GREEN + "  5. Luong co ban: " + Color.YELLOW + luongCoBan + "\n" + Color.RESET
-            + "||" + Color.GREEN + "  6. Luong thuong (QL): " + Color.YELLOW + luongThuong + "\n" + Color.RESET
+            + "||" + Color.GREEN + "  Tai khoan: " + Color.YELLOW + person.getUsername() + "\n" + Color.RESET
+            + "||" + Color.GREEN + "  1. Ho va ten: " + Color.YELLOW + person.getFullName() + "\n" + Color.RESET
+            + "||" + Color.GREEN + "  2. Tuoi: " + Color.YELLOW + person.getAge() + "\n" + Color.RESET
+            + "||" + Color.GREEN + "  3. Gioi tinh: " + Color.YELLOW + person.getGender() + "\n" + Color.RESET
+            + "||" + Color.GREEN + "  4. So dien thoai: " + Color.YELLOW + person.getPhone() + "\n" + Color.RESET
+            + "||" + Color.GREEN + "  5. Luong co ban: " + Color.YELLOW + salary + "\n" + Color.RESET
+            + "||" + Color.GREEN + "  6. Luong thuong (QL): " + Color.YELLOW + salaryBonus + "\n" + Color.RESET
             + "||" + Color.GREEN + "  0. Quay lai\n"
             + Color.RESET + "============================================");
         System.out.print("~~> Lua chon muc de sua: ");
@@ -518,43 +521,43 @@ public class Main {
         switch (line) {
           case "1": {
             System.out.print("Nhap lai ho va ten: ");
-            String hoTen = input.nextLine();
-            nhanSu.setHoTen(hoTen);
+            String fullName = input.nextLine();
+            person.setFullName(fullName);
             break;
           }
           case "2": {
             System.out.print("Nhap lai tuoi: ");
-            int tuoi = input.nextInt();
-            nhanSu.setTuoi(tuoi);
+            int age = input.nextInt();
+            person.setAge(age);
             break;
           }
           case "3": {
             System.out.print("Nhap lai gioi tinh (Nam/Nu): ");
-            String gioiTinh = input.nextLine();
-            nhanSu.setGioiTinh(gioiTinh);
+            String gender = input.nextLine();
+            person.setGender(gender);
             break;
           }
           case "4": {
             System.out.print("Nhap lai so dien thoai: ");
-            String soDienThoai = input.nextLine();
-            nhanSu.setSoDienThoai(soDienThoai);
+            String phone = input.nextLine();
+            person.setPhone(phone);
             break;
           }
           case "5": {
             System.out.print("Nhap lai luong co ban: ");
-            luongCoBan = input.nextDouble();
-            if (nhanSu instanceof QuanLy) {
-              QuanLy quanLy = (QuanLy) nhanSu;
-              quanLy.setLuongCoBan(luongCoBan);
+            salary = input.nextDouble();
+            if (person instanceof Manager) {
+              Manager quanLy = (Manager) person;
+              quanLy.setSalary(salary);
             } else {
-              NhanVien nhanVien = (NhanVien) nhanSu;
-              nhanVien.setLuongCoBan(luongCoBan);
+              Staff nhanVien = (Staff) person;
+              nhanVien.setSalary(salary);
             }
             break;
           }
           case "6": {
 
-            if (nhanSu instanceof NhanVien) {
+            if (person instanceof Staff) {
               System.out.print(Color.YELLOW + Color.RED_BACKGROUND);
               System.out.println("Quan ly moi co luong thuong !!!" + Color.RESET);
               System.out.print("Nhan phim bat ky de tiep tuc: ");
@@ -563,14 +566,14 @@ public class Main {
             }
 
             System.out.print("Nhap lai luong thuong: ");
-            luongThuong = input.nextDouble();
-            QuanLy quanLy = (QuanLy) nhanSu;
-            quanLy.setLuongThuong(luongThuong);
+            salaryBonus = input.nextDouble();
+            Manager quanLy = (Manager) person;
+            quanLy.setSalaryBonus(salaryBonus);
 
             break;
           }
           case "0":
-            QuanLyNhanSu.Instance().Sua(id - 1, nhanSu);
+            PersonManagement.Instance().Update(id - 1, person);
             return;
 
           default:
@@ -589,7 +592,7 @@ public class Main {
           "\nSTT\tTK  \t HO VA TEN\t   TUOI\t   GT\t  SODIENTHOAI\t  LUONG \tLUONG+\t   CHUC VU\n" +
           Color.Line(100, '-'));
 
-      QuanLyNhanSu.Instance().XuatDanhSach();
+      PersonManagement.Instance().PrintList();
 
       System.out.println(Color.Line(100, '-'));
       System.out.print(Color.RESET);
@@ -609,14 +612,14 @@ public class Main {
             "\nSTT\tTK  \t HO VA TEN\t   TUOI\t   GT\t  SODIENTHOAI\t  LUONG \tLUONG+\t   CHUC VU\n" +
             Color.Line(100, '-'));
 
-        List<NhanSu> nhanSuList = QuanLyNhanSu.Instance().TimKiem(hoTen);
-        int soLuong = nhanSuList.size();
+        List<Person> personList = PersonManagement.Instance().SearchByName(hoTen);
+        int soLuong = personList.size();
         System.out.println(Color.YELLOW);
         if (soLuong == 0) {
           System.out.println("\n\t\t\t\t\tKHONG CO KET QUA NAO TRUNG KHOP");
         } else
           for (int i = 1; i <= soLuong; i++) {
-            System.out.println("[" + i + "]\t" + nhanSuList.get(i - 1).ThongTin());
+            System.out.println("[" + i + "]\t" + personList.get(i - 1).Info());
           }
         System.out.println(Color.RESET);
 
@@ -651,15 +654,18 @@ public class Main {
     
 
     Scanner input = new Scanner(System.in);
-    NhanSu nhanSu = QuanLyNhanSu.Instance().KiemTraNhanSuDaDangNhap();
+    Person person = PersonManagement.Instance().CheckLogin();
     boolean dangXuat = false;
+    // Neu ko dang nhat dc 
+    // Person manager = new Manager("admin", "admin", "abc", 12, "nam", "09", 12, 12);
+    // Menu(input, manager);
 
     do {
-      if (nhanSu == null)
-        nhanSu = MenuDangNhap(input);
-      if (nhanSu != null)
-        dangXuat = Menu(input, nhanSu);
-      nhanSu = null;
+      if (person == null)
+        person = MenuDangNhap(input);
+      if (person != null)
+        dangXuat = Menu(input, person);
+      person = null;
 
     } while (dangXuat);
 

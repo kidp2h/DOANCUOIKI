@@ -1,4 +1,4 @@
-package DOANCUOIKI.quanly;
+package DOANCUOIKI.management;
 
 import java.io.*;
 import java.lang.System;
@@ -6,28 +6,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import DOANCUOIKI.NhanSu;
+import DOANCUOIKI.Person;
 import DOANCUOIKI.util.Color;
 import DOANCUOIKI.util.RWFile;
 
-public class QuanLyNhanSu implements IQuanLy<NhanSu> {
+public class PersonManagement implements IManagement<Person> {
 
-  private List<NhanSu> list;
+  private List<Person> list;
 
-  private String path = new File("DOANCUOIKI/data/NhanSu.data").getAbsolutePath();
-  private String pathLogin = new File("DOANCUOIKI/data/NhanSu.data").getAbsolutePath();
+  private String path = new File("DOANCUOIKI/data/Person.data").getAbsolutePath();
+  private String pathLogin = new File("DOANCUOIKI/data/Login.data").getAbsolutePath();
   private int listSize = 0;
 
-  private static QuanLyNhanSu instance;
+  private static PersonManagement instance;
 
-  public static QuanLyNhanSu Instance() {
+  public static PersonManagement Instance() {
     if (instance == null) {
-      instance = new QuanLyNhanSu();
+      instance = new PersonManagement();
     }
     return instance;
   }
 
-  private QuanLyNhanSu() {
+  private PersonManagement() {
     list = new ArrayList<>();
     LoadFile();
   }
@@ -37,7 +37,7 @@ public class QuanLyNhanSu implements IQuanLy<NhanSu> {
     File file = new File(path);
     try {
       if (file.exists()) {
-        list = (ArrayList<NhanSu>) RWFile.readObject(path);
+        list = (ArrayList<Person>) RWFile.readObject(path);
         listSize = list.size();
       } else {
         file.createNewFile();
@@ -47,12 +47,12 @@ public class QuanLyNhanSu implements IQuanLy<NhanSu> {
   }
 
   @Override
-  public List<NhanSu> LayList() {
+  public List<Person> GetList() {
     return list;
   }
 
   @Override
-  public void XuatDanhSach() {
+  public void PrintList() {
     System.out.println(Color.YELLOW);
     if (listSize == 0) {
       System.out.println("\n\t\t\t\t\tDANH SACH DANG TRONG");
@@ -61,13 +61,13 @@ public class QuanLyNhanSu implements IQuanLy<NhanSu> {
     }
 
     for (int i = 1; i <= listSize; i++) {
-      System.out.println("[" + i + "]\t" + list.get(i - 1).ThongTin());
+      System.out.println("[" + i + "]\t" + list.get(i - 1).Info());
     }
     System.out.println(Color.RESET);
   }
 
   @Override
-  public void Them(NhanSu obj) {
+  public void Add(Person obj) {
     list.add(obj);
     listSize++;
 
@@ -78,7 +78,7 @@ public class QuanLyNhanSu implements IQuanLy<NhanSu> {
   }
 
   @Override
-  public void Sua(int id, NhanSu obj) {
+  public void Update(int id, Person obj) {
     list.set(id, obj);
     try {
       RWFile.writeObject(path, list);
@@ -87,7 +87,7 @@ public class QuanLyNhanSu implements IQuanLy<NhanSu> {
   }
 
   @Override
-  public void Xoa(int id) {
+  public void Delete(int id) {
     list.remove(id);
     listSize--;
     try {
@@ -98,15 +98,15 @@ public class QuanLyNhanSu implements IQuanLy<NhanSu> {
   }
 
   @Override
-  public List<NhanSu> TimKiem(String name) {
+  public List<Person> SearchByName(String name) {
     return list.stream()
-        .filter(nhansu -> nhansu.getHoTen().toUpperCase().contains(name.toUpperCase()))
+        .filter(nhansu -> nhansu.getFullName().toUpperCase().contains(name.toUpperCase()))
         .collect(Collectors.toList());
   }
 
-  public NhanSu KiemTraTaiKhoan(String taiKhoan, String matKhau) {
-    List<NhanSu> listTemp = list.stream()
-        .filter(nhansu -> nhansu.getTaiKhoan().equals(taiKhoan) && nhansu.getMatKhau().equals(matKhau))
+  public Person CheckAccount(String taiKhoan, String matKhau) {
+    List<Person> listTemp = list.stream()
+        .filter(nhansu -> nhansu.getUsername().equals(taiKhoan) && nhansu.getPassword().equals(matKhau))
         .collect(Collectors.toList());
 
     if (listTemp.size() == 0) {
@@ -124,11 +124,11 @@ public class QuanLyNhanSu implements IQuanLy<NhanSu> {
     }
   }
 
-  public NhanSu KiemTraNhanSuDaDangNhap() {
+  public Person CheckLogin() {
     File file = new File(pathLogin);
     try {
       if (file.exists()) {
-        return (NhanSu) RWFile.readObject(pathLogin);
+        return (Person) RWFile.readObject(pathLogin);
       } else {
         return null;
       }
