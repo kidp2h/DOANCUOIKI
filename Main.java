@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import DOANCUOIKI.management.BillManagement;
-import DOANCUOIKI.management.IManagement;
 import DOANCUOIKI.management.PersonManagement;
 import DOANCUOIKI.management.ProductManagement;
 import DOANCUOIKI.util.Color;
@@ -104,7 +103,7 @@ public class Main {
             clearConsole();
             System.out.print(Color.YELLOW + Color.RED_BACKGROUND);
             System.out.println("Chuc nang chi danh cho quan ly !!!" + Color.RESET);
-            System.out.print("\nNhan phim bat ky de quay lai: ");
+            System.out.print("\nNhap phim bat ky de quay lai: ");
             input.nextLine();
           }
           break;
@@ -359,16 +358,17 @@ public class Main {
   public static void MenuQuanLySanPham(Scanner input) {
     while (true) {
       clearConsole();
-      System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
-      System.out.println("============ QUAN LY SAN PHAM ============" + Color.RESET);
-      System.out.println("==========================================\n"
-                      + "||  1. Xuat danh sach san pham          ||\n"
-                      + "||  2. Them san pham                    ||\n"
-                      + "||  3. Sua san pham                     ||\n"
-                      + "||  4. Xoa san pham                     ||\n"
-                      + "||  5. Tim kiem san pham                ||\n"
-                      + "||  0. Quay lai                         ||\n"
-                      + "==========================================");
+      System.out.print(Color.BLUE_BACKGROUND);
+      System.out.println("======== UNG DUNG QUAN LY BAN HANG ========" + Color.RESET);
+      System.out.println("===========================================\n"
+          + "||  1. Xuat danh sach san pham           ||\n"
+          + "||  2. Them san pham                     ||\n"
+          + "||  3. Sua san pham                      ||\n"
+          + "||  4. Xoa san pham                      ||\n"
+          + "||  5. Tim kiem san pham theo ten        ||\n"
+          + "||  6. Tim kiem san pham theo loai       ||\n"
+          + "||  0. Quay lai                          ||\n"
+          + "===========================================");
       System.out.print("~~> Lua chon: ");
       String line = input.nextLine();
       switch (line) {
@@ -377,7 +377,7 @@ public class Main {
           System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
           System.out.println(Color.Line(41, '=') + " DANH SACH SAN PHAM " + Color.Line(41, '=') + Color.GREEN);
           System.out.print(Color.Line(100, '-') +
-              "\nSTT\tTEN SP\tLOAI\tGIA\n" +
+              "\nSTT\tMA SP\tTEN SP\tLOAI\tGIA\n" +
               Color.Line(100, '-'));
 
           ProductManagement.Instance().PrintList();
@@ -391,6 +391,20 @@ public class Main {
         case "2":
           System.out.print(Color.GREEN);
           System.out.println("\n--------------- NHAP THONG TIN SAN PHAM --------------" + Color.RESET);
+          String idProduct = "";
+          int flag = 0;
+          do {
+              System.out.print(Color.YELLOW + "Ma san pham: " + Color.RESET);
+              idProduct = input.nextLine();
+              if(!ProductManagement.Instance().checkId(idProduct)){
+                System.out.println("Ma san pham bi trung hay nhap lai !!!");
+              }else{
+                flag = 1;
+              }
+                
+          }while(flag == 0);
+
+          
           System.out.print(Color.YELLOW + "Ten san pham: " + Color.RESET);
           String name = input.nextLine();
 
@@ -400,7 +414,7 @@ public class Main {
           System.out.print(Color.YELLOW + "Gia: " + Color.RESET);
           String price = input.nextLine();
 
-          Product product = new Product(name, category, Integer.parseInt(price));
+          Product product = new Product(idProduct,name, category, Integer.parseInt(price));
           ProductManagement.Instance().Add(product, ENV.pathProduct);
 
           System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
@@ -418,20 +432,19 @@ public class Main {
             clearConsole();
             System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
             System.out.println(Color.Line(41, '=') + " DANH SACH SAN PHAM " + Color.Line(41, '=') + Color.GREEN);
-            System.out.print(
-              Color.Line(100, '-') +
-                "\nSTT\tTEN SP\tLOAI\tGIA\n" +
-              Color.Line(100, '-'));
+            System.out.print(Color.Line(100, '-') +
+                "\nSTT\tMA SP\tTEN SP\tLOAI\tGIA\n" +
+                Color.Line(100, '-'));
             ProductManagement.Instance().PrintList();
             System.out.println(Color.Line(100, '-'));
             System.out.print(Color.RESET);
             System.out.println("\nNhap 0 de quay lai");
-            System.out.print("Nhan id san pham can sua: ");
-            int id = input.nextInt();
+            System.out.print("Nhap STT san pham can sua: ");
+            int index = input.nextInt();
             input.nextLine();
-            if (id == 0)
+            if (index == 0)
               return;
-            Product _product = ProductManagement.Instance().GetList().get(id - 1);
+            Product _product = ProductManagement.Instance().GetList().get(index - 1);
             while (true) {
               clearConsole();
               System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
@@ -464,7 +477,7 @@ public class Main {
                   break;
                 }
                 case "0":
-                  ProductManagement.Instance().Update(id - 1, _product, ENV.pathProduct);
+                  ProductManagement.Instance().Update(index - 1, _product, ENV.pathProduct);
                   return;
                 default:
               }
@@ -476,7 +489,7 @@ public class Main {
             System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
             System.out.println(Color.Line(41, '=') + " DANH SACH SAN PHAM " + Color.Line(41, '=') + Color.GREEN);
             System.out.print(Color.Line(100, '-') +
-                "\nSTT\tTEN SP\tLOAI\tGIA\n" +
+                "\nSTT\tMA SP\tTEN SP\tLOAI\tGIA\n" +
                 Color.Line(100, '-'));
 
             ProductManagement.Instance().PrintList();
@@ -485,7 +498,7 @@ public class Main {
             System.out.print(Color.RESET);
 
             System.out.println("\nNhap 0 de quay lai");
-            System.out.print("Nhan id san pham can xoa: ");
+            System.out.print("Nhap STT san pham can xoa: ");
             int id = input.nextInt();
             switch (id) {
               case 0: {
@@ -527,7 +540,7 @@ public class Main {
             while (true) {
               clearConsole();
               System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
-              System.out.println(Color.Line(41, '=') + " DANH SACH NHAN SU " + Color.Line(41, '=') + Color.GREEN);
+              System.out.println(Color.Line(41, '=') + " DANH SACH SAN PHAM " + Color.Line(41, '=') + Color.GREEN);
               System.out.print(Color.Line(100, '-') +
                 "\nSTT\tTEN SP\tLOAI\tGIA\n" +
                 Color.Line(100, '-'));
@@ -549,6 +562,55 @@ public class Main {
               System.out.print("\nTim kiem theo ten san pham: ");
               nameProduct = input.nextLine();
               if (nameProduct.equals("0"))
+                return;
+            }
+          }
+        case "6":
+          while (true) {
+            clearConsole();
+            System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
+            System.out.println(Color.Line(41, '=') + " DANH SACH SAN PHAM " + Color.Line(41, '=') + Color.GREEN);
+            System.out.print(Color.Line(100, '-') +
+                "\nSTT\tMA SP\tTEN SP\tLOAI\tGIA\n" +
+                Color.Line(100, '-'));
+
+            ProductManagement.Instance().PrintList();
+
+            System.out.println(Color.Line(100, '-'));
+            System.out.print(Color.RESET);
+
+            System.out.print("\nNhap 0 de quay lai");
+            System.out.print("\nTim kiem theo loai san pham: ");
+            String categoryProduct = input.nextLine();
+
+            if (categoryProduct.equals("0"))
+              return;
+
+            while (true) {
+              clearConsole();
+              System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
+              System.out.println(Color.Line(41, '=') + " DANH SACH SAN PHAM " + Color.Line(41, '=') + Color.GREEN);
+              System.out.print(Color.Line(100, '-') +
+                "\nSTT\tMA SP\tTEN SP\tLOAI\tGIA\n" +
+                Color.Line(100, '-'));
+
+              List<Product> productList = ProductManagement.Instance().SearchByCategory(categoryProduct);
+              int count = productList.size();
+              System.out.println(Color.YELLOW);
+              if (count == 0) {
+                System.out.println("\n\t\t\t\t\tKHONG CO KET QUA NAO TRUNG KHOP");
+              } else
+                for (int i = 1; i <= count; i++)
+                  System.out.println("[" + i + "]\t" + productList.get(i - 1).Info());
+              System.out.println(Color.RESET);
+
+              System.out.println(Color.Line(100, '-'));
+              System.out.print(Color.RESET);
+
+              System.out.print("\nNhap 0 de quay lai");
+              System.out.print("\nTim kiem theo loai san pham: ");
+              categoryProduct = input.nextLine();
+              if (categoryProduct.equals("0"))
                 return;
             }
           }
