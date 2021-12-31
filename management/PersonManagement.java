@@ -1,13 +1,11 @@
 package DOANCUOIKI.management;
 
-import java.io.*;
-import java.lang.System;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import DOANCUOIKI.Person;
-import DOANCUOIKI.util.Color;
 import DOANCUOIKI.util.RWFile;
 import DOANCUOIKI.ENV;
 
@@ -30,6 +28,7 @@ public class PersonManagement extends Management<Person> implements IManagement<
     list = new ArrayList<>();
     LoadFile(ENV.pathPerson);
   }
+  
   @Override
   public List<Person> SearchByName(String name) {
     return list.stream()
