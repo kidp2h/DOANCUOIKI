@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import DOANCUOIKI.ENV;
 import DOANCUOIKI.Product;
 import DOANCUOIKI.util.RWFile;
-// extends AbstractManagement<Product>
-// implements IManagement<Product>
+
 public class ProductManagement extends Management<Product> implements IManagement<Product> {
   private static ProductManagement instance;
 
