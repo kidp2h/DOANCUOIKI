@@ -1,13 +1,11 @@
 package DOANCUOIKI.management;
 
 import java.io.*;
-import java.lang.System;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import DOANCUOIKI.Person;
-import DOANCUOIKI.util.Color;
 import DOANCUOIKI.util.RWFile;
 import DOANCUOIKI.ENV;
 
