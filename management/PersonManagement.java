@@ -9,14 +9,13 @@ import java.util.stream.Collectors;
 import DOANCUOIKI.Person;
 import DOANCUOIKI.util.Color;
 import DOANCUOIKI.util.RWFile;
+import DOANCUOIKI.ENV;
 
-public class PersonManagement implements IManagement<Person> {
+public class PersonManagement extends Management<Person> implements IManagement<Person> {
 
-  private List<Person> list;
+  // private String path = new File("DOANCUOIKI/data/Person.data").getAbsolutePath();
+  // private String pathLogin = new File("DOANCUOIKI/data/Login.data").getAbsolutePath();
 
-  private String path = new File("DOANCUOIKI/data/Person.data").getAbsolutePath();
-  private String pathLogin = new File("DOANCUOIKI/data/Login.data").getAbsolutePath();
-  private int listSize = 0;
 
   private static PersonManagement instance;
 
@@ -29,74 +28,8 @@ public class PersonManagement implements IManagement<Person> {
 
   private PersonManagement() {
     list = new ArrayList<>();
-    LoadFile();
+    LoadFile(ENV.pathPerson);
   }
-
-  @Override
-  public void LoadFile() {
-    File file = new File(path);
-    try {
-      if (file.exists()) {
-        list = (ArrayList<Person>) RWFile.readObject(path);
-        listSize = list.size();
-      } else {
-        file.createNewFile();
-      }
-    } catch (Exception e) {
-    }
-  }
-
-  @Override
-  public List<Person> GetList() {
-    return list;
-  }
-
-  @Override
-  public void PrintList() {
-    System.out.println(Color.YELLOW);
-    if (listSize == 0) {
-      System.out.println("\n\t\t\t\t\tDANH SACH DANG TRONG");
-      System.out.println(Color.RESET);
-      return;
-    }
-
-    for (int i = 1; i <= listSize; i++) {
-      System.out.println("[" + i + "]\t" + list.get(i - 1).Info());
-    }
-    System.out.println(Color.RESET);
-  }
-
-  @Override
-  public void Add(Person obj) {
-    list.add(obj);
-    listSize++;
-
-    try {
-      RWFile.writeObject(path, list);
-    } catch (Exception e) {
-    }
-  }
-
-  @Override
-  public void Update(int id, Person obj) {
-    list.set(id, obj);
-    try {
-      RWFile.writeObject(path, list);
-    } catch (Exception e) {
-    }
-  }
-
-  @Override
-  public void Delete(int id) {
-    list.remove(id);
-    listSize--;
-    try {
-      RWFile.writeObject(path, list);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
   @Override
   public List<Person> SearchByName(String name) {
     return list.stream()
@@ -112,11 +45,11 @@ public class PersonManagement implements IManagement<Person> {
     if (listTemp.size() == 0) {
       return null;
     } else {
-      File file = new File(pathLogin);
+      File file = new File(ENV.pathLogin);
       try {
         if (!file.exists())
           file.createNewFile();
-        RWFile.writeObject(pathLogin, listTemp.get(0));
+        RWFile.writeObject(ENV.pathLogin, listTemp.get(0));
       } catch (Exception e) {
       }
 
@@ -125,10 +58,10 @@ public class PersonManagement implements IManagement<Person> {
   }
 
   public Person CheckLogin() {
-    File file = new File(pathLogin);
+    File file = new File(ENV.pathLogin);
     try {
       if (file.exists()) {
-        return (Person) RWFile.readObject(pathLogin);
+        return (Person) RWFile.readObject(ENV.pathLogin);
       } else {
         return null;
       }
@@ -137,9 +70,4 @@ public class PersonManagement implements IManagement<Person> {
 
     return null;
   }
-
-  // public int IdLonNhat() {
-  // list.stream().map(nhansu -> nhansu.getId())
-  // }
-
 }

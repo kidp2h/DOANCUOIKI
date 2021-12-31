@@ -4,11 +4,6 @@ import java.io.Console;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
-
-import javax.sound.sampled.AudioPermission;
-
-import java.io.File;
-
 import DOANCUOIKI.management.PersonManagement;
 import DOANCUOIKI.util.Color;
 
@@ -358,7 +353,7 @@ public class Main {
           input.nextLine();
 
           Person nhanvien = new Staff(taiKhoan, matKhau, hoTen, tuoi, gioiTinh, soDienThoai, salary);
-          PersonManagement.Instance().Add(nhanvien);
+          PersonManagement.Instance().Add(nhanvien, ENV.pathPerson);
 
           System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
           System.out.print("\n~~> DA THEM THANH CONG !!! <~~" + Color.RESET);
@@ -403,7 +398,7 @@ public class Main {
           input.nextLine();
 
           Person quanly = new Manager(taiKhoan, matKhau, hoTen, tuoi, gioiTinh, soDienThoai, salary, salaryBonus);
-          PersonManagement.Instance().Add(quanly);
+          PersonManagement.Instance().Add(quanly, ENV.pathPerson);
 
           System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
           System.out.print("\n~~> DA THEM THANH CONG !!! <~~" + Color.RESET);
@@ -449,7 +444,7 @@ public class Main {
           return;
         }
         default: {
-          PersonManagement.Instance().Delete(id - 1);
+          PersonManagement.Instance().Delete(id - 1,ENV.pathPerson);
 
           System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
           System.out.print("\n~~> DA XOA THANH CONG !!! <~~" + Color.RESET);
@@ -573,7 +568,7 @@ public class Main {
             break;
           }
           case "0":
-            PersonManagement.Instance().Update(id - 1, person);
+            PersonManagement.Instance().Update(id - 1, person,ENV.pathPerson);
             return;
 
           default:
@@ -659,7 +654,7 @@ public class Main {
     // Neu ko dang nhat dc 
     // Person manager = new Manager("admin", "admin", "abc", 12, "nam", "09", 12, 12);
     // Menu(input, manager);
-
+    
     do {
       if (person == null)
         person = MenuDangNhap(input);

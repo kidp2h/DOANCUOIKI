@@ -2,7 +2,7 @@ package DOANCUOIKI;
 
 import java.io.Serializable;
 
-public abstract class Person implements Serializable {
+public abstract class Person extends Entity implements Serializable {
     
     protected String username;
     protected String password;
@@ -21,7 +21,7 @@ public abstract class Person implements Serializable {
     }
 
     abstract public double SumSalary();
-    abstract public String Info();
+
 
     
 
