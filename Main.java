@@ -704,6 +704,13 @@ public class Main {
           input.nextLine();
 
           if(stt == 0) return;
+          MenuSuaBillChiTiet(input,stt);
+          
+    }
+  }
+
+  public static void MenuSuaBillChiTiet(Scanner input, int stt) {
+    while(true) {
           clearConsole();
           Bill bill = BillManagement.Instance().GetList().get(stt - 1);
           System.out.println(bill.InfoDetails());
@@ -724,39 +731,45 @@ public class Main {
               System.out.print("\nNhap lai ho ten khach hang: ");
               String customerName = input.nextLine();
               bill.setCustomerName(customerName);
-            break;
+              BillManagement.Instance().Update(stt-1, bill, ENV.pathBill);
+              break;
             case "2": 
               System.out.print("\nNhap lai sdt khach hang: ");
               String customerPhone = input.nextLine();
               bill.setCustomerPhone(customerPhone);
-            break;
+              BillManagement.Instance().Update(stt-1, bill, ENV.pathBill);
+              break;
             case "3": 
-            MenuThemSPVaoBill(input, bill);
-            break;
+              MenuThemSPVaoBill(input, bill);
+              BillManagement.Instance().Update(stt-1, bill, ENV.pathBill);
+              break;
             case "4": 
-            MenuSuaSLSpTrongBill(input, bill);
-            break;
+              MenuSuaSLSpTrongBill(input, bill);
+              BillManagement.Instance().Update(stt-1, bill, ENV.pathBill);
+              break;
             case "5": 
-            MenuXoaSpKhoiBill(input, bill);
-            break;
+              MenuXoaSpKhoiBill(input, bill);
+              BillManagement.Instance().Update(stt-1, bill, ENV.pathBill);
+              break;
             case "6":
-            System.out.println("\nNhap lai ngay thanh toan: ");
-            System.out.print("Ngay: ");
-            int dayOfMonth = input.nextInt();
-            System.out.print("Thang: ");
-            int month = input.nextInt();
-            System.out.print("Nam: ");
-            int year = input.nextInt();
-            input.nextLine();
-            bill.setDate(LocalDate.of(year, month, dayOfMonth));
-            break; 
+              System.out.println("\nNhap lai ngay thanh toan: ");
+              System.out.print("Ngay: ");
+              int dayOfMonth = input.nextInt();
+              System.out.print("Thang: ");
+              int month = input.nextInt();
+              System.out.print("Nam: ");
+              int year = input.nextInt();
+              input.nextLine();
+              bill.setDate(LocalDate.of(year, month, dayOfMonth));
+              BillManagement.Instance().Update(stt -1, bill, ENV.pathBill);
+              break; 
             case "0": 
             return;
+
+            default:
           }
     }
   }
-
-
 
   public static void MenuQuanLyNhanSu(Scanner input) {
     while (true) {
@@ -1147,7 +1160,6 @@ public class Main {
     }
 
   }
-
 
 
 

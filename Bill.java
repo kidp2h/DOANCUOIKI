@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.crypto.Data;
-
 import DOANCUOIKI.util.Color;
 
 public class Bill extends Entity implements Serializable {
