@@ -20,7 +20,7 @@ public class Management<T extends Entity> {
     File file = new File(path);
     try {
       if (file.exists()) {
-        list = (ArrayList<T>) RWFile.readObject(ENV.pathPerson);
+        list = (ArrayList<T>) RWFile.readObject(path);
         listSize = list.size();
       } else {
         file.createNewFile();
@@ -61,10 +61,8 @@ public class Management<T extends Entity> {
       System.out.println(Color.RESET);
       return;
     }
-
-    for (int i = 1; i <= listSize; i++) {
+    for (int i = 1; i <= listSize; i++)
       System.out.println("[" + i + "]\t" + list.get(i - 1).Info());
-    }
     System.out.println(Color.RESET);
   }
 }

@@ -1,6 +1,10 @@
 package DOANCUOIKI.management;
 
+<<<<<<< HEAD
 import java.io.File;
+=======
+import java.io.*;
+>>>>>>> cb1136406eca945c8950c057cfd8c942f868af60
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,10 +14,6 @@ import DOANCUOIKI.util.RWFile;
 import DOANCUOIKI.ENV;
 
 public class PersonManagement extends Management<Person> implements IManagement<Person> {
-
-  // private String path = new File("DOANCUOIKI/data/Person.data").getAbsolutePath();
-  // private String pathLogin = new File("DOANCUOIKI/data/Login.data").getAbsolutePath();
-
 
   private static PersonManagement instance;
 
