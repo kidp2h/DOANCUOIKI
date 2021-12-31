@@ -4,6 +4,8 @@ import java.io.Console;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
+
+import DOANCUOIKI.management.IManagement;
 import DOANCUOIKI.management.PersonManagement;
 import DOANCUOIKI.util.Color;
 
@@ -168,7 +170,6 @@ public class Main {
       System.out.print("~~> Lua chon: ");
 
       String line = input.nextLine();
-
       switch (line) {
         case "1":
           MenuQuanLySanPham(input);
@@ -196,13 +197,17 @@ public class Main {
   public static void MenuQuanLySanPham(Scanner input) {
     while (true) {
       clearConsole();
-      System.out.println("UNG DUNG QUAN LY BAN HANG");
-      System.out.println("1. Danh sach san pham");
-      System.out.println("2. Them san pham");
-      System.out.println("3. Sua san pham");
-      System.out.println("4. Xoa san pham");
-      System.out.println("5. Tim kiem san pham");
-      System.out.println("0. Quay lai");
+      System.out.print(Color.BLUE_BACKGROUND);
+      System.out.println("======== UNG DUNG QUAN LY BAN HANG ========" + Color.RESET);
+      System.out.println("===========================================\n"
+          + "||  1. Xuat danh sach san pham           ||\n"
+          + "||  2. Them san pham                     ||\n"
+          + "||  3. Sua san pham                      ||\n"
+          + "||  4. Xoa san pham                      ||\n"
+          + "||  5. Tim kiem san pham                 ||\n"
+          + "||  0. Quay lai                          ||\n"
+          + "===========================================");
+      System.out.print("~~> Lua chon: ");
       String line = input.nextLine();
       switch (line) {
         case "1":
@@ -652,8 +657,8 @@ public class Main {
     Person person = PersonManagement.Instance().CheckLogin();
     boolean dangXuat = false;
     // Neu ko dang nhat dc 
-    // Person manager = new Manager("admin", "admin", "abc", 12, "nam", "09", 12, 12);
-    // Menu(input, manager);
+    Person manager = new Manager("admin", "admin", "abc", 12, "nam", "09", 12, 12);
+    Menu(input, manager);
     
     do {
       if (person == null)
