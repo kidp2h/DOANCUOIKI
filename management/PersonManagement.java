@@ -13,10 +13,6 @@ import DOANCUOIKI.ENV;
 
 public class PersonManagement extends Management<Person> implements IManagement<Person> {
 
-  // private String path = new File("DOANCUOIKI/data/Person.data").getAbsolutePath();
-  // private String pathLogin = new File("DOANCUOIKI/data/Login.data").getAbsolutePath();
-
-
   private static PersonManagement instance;
 
   public static PersonManagement Instance() {

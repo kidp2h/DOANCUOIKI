@@ -2,11 +2,18 @@ package DOANCUOIKI;
 
 import java.io.Serializable;
 
-public abstract class Product extends Entity implements Serializable {
+public class Product extends Entity implements Serializable {
   private int id;
   public String name;
   public String category;
   public int price;
+
+  public Product(String name, String category, int price) {
+    this.id = 5;
+    this.name = name;
+    this.category = category;
+    this.price = price;
+}
 
   public int getId() {
     return id;
@@ -31,5 +38,12 @@ public abstract class Product extends Entity implements Serializable {
   }
   public void setPrice(int price) {
     this.price = price;
+  }
+  @Override
+  public String Info() {
+    return  
+    name + "\t"
+    + category + "\t"
+    + price;
   }
 }
