@@ -23,8 +23,6 @@ public abstract class Person extends Entity implements Serializable {
     abstract public double SumSalary();
 
 
-    
-
     public String getUsername() {
         return this.username;
     }

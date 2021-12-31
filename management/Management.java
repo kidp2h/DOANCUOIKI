@@ -35,14 +35,14 @@ public class Management<T extends Entity> {
     try {
       RWFile.writeObject(path, list);
     } catch (Exception e) {
-      e.printStackTrace();
     }
   }
   public void Update(int id, T obj, String path) {
     list.set(id, obj);
     try {
-      RWFile.writeObject(ENV.pathPerson, list);
+      RWFile.writeObject(path, list);
     } catch (Exception e) {
+      
     }
   }
   public void Add(T obj, String path) {
