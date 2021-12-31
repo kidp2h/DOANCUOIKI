@@ -264,7 +264,7 @@ public class Main {
             System.out.println(Color.Line(100, '-'));
             System.out.print(Color.RESET);
             System.out.println("\nNhap 0 de quay lai");
-            System.out.print("Nhan id nhan su can sua: ");
+            System.out.print("Nhan id san pham can sua: ");
             int id = input.nextInt();
             input.nextLine();
             if (id == 0)
@@ -273,7 +273,7 @@ public class Main {
             while (true) {
               clearConsole();
               System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
-              System.out.println("======== THONG TIN NHAN SU MUON SUA ========" + Color.RESET);
+              System.out.println("======== THONG TIN SAN PHAM MUON SUA ========" + Color.RESET);
               System.out.println("============================================\n"
                   + "||" + Color.GREEN + "  1. Ten san pham: " + Color.YELLOW + _product.getName() + "\n" + Color.RESET
                   + "||" + Color.GREEN + "  2. Loai: " + Color.YELLOW + _product.getCategory() + "\n" + Color.RESET
@@ -323,7 +323,7 @@ public class Main {
             System.out.print(Color.RESET);
 
             System.out.println("\nNhap 0 de quay lai");
-            System.out.print("Nhan id nhan su can xoa: ");
+            System.out.print("Nhan id san pham can xoa: ");
             int id = input.nextInt();
             switch (id) {
               case 0: {
