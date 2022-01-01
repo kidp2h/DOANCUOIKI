@@ -7,10 +7,17 @@ import DOANCUOIKI.Entity;
 import DOANCUOIKI.util.Color;
 import DOANCUOIKI.util.RWFile;
 
-public class Management<T extends Entity> {
+public class Management<T extends Entity> implements IManagement<T>{
   protected List<T> list;
   protected int listSize = 0;
-  
+  private static Management instance;
+
+  public static Management Instance() {
+    if (instance == null)
+      instance = new Management();
+    return instance;
+  }
+
   public int getListSize() {
     return listSize;
   }
@@ -70,7 +77,7 @@ public class Management<T extends Entity> {
     }
     return true;
   }
- 
+
   public void PrintList() {
     System.out.println(Color.YELLOW);
     if (listSize == 0) {
@@ -80,6 +87,18 @@ public class Management<T extends Entity> {
     }
     for (int i = 1; i <= listSize; i++)
       System.out.println("[" + i + "]\t" + list.get(i - 1).Info());
+    System.out.println(Color.RESET);
+  }
+
+  public void PrintList(List<T> data) {
+    System.out.println(Color.YELLOW);
+    if (data.size() == 0) {
+      System.out.println("\n\t\t\t\t\tDANH SACH DANG TRONG");
+      System.out.println(Color.RESET);
+      return;
+    }
+    for (int i = 1; i <= data.size(); i++)
+      System.out.println("[" + i + "]\t" + data.get(i - 1).Info());
     System.out.println(Color.RESET);
   }
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import DOANCUOIKI.ENV;
 import DOANCUOIKI.Product;
 
-public class ProductManagement extends Management<Product> implements IManagement<Product> {
+public class ProductManagement extends Management<Product> {
   private static ProductManagement instance;
 
   public static ProductManagement Instance() {
@@ -18,7 +18,6 @@ public class ProductManagement extends Management<Product> implements IManagemen
     LoadFile(ENV.pathProduct);
   }
 
-  @Override
   public List<Product> SearchByName(String name) {
     return list.stream()
     .filter(product -> product.getName().toUpperCase().contains(name.toUpperCase()))
