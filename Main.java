@@ -89,7 +89,8 @@ public class Main {
                         +"\n===========================================\n"
                         +"||  1. Ban Hang                          ||\n"
                         +"||  2. Quan Ly                           ||\n"
-                        +"||  3. Dang Xuat                         ||\n"
+                        +"||  3. Thong ke                          ||\n"
+                        +"||  4. Dang Xuat                         ||\n"
                         +"||  0. Thoat                             ||\n"
                         +"===========================================");
       System.out.print("~~> Lua chon: ");
@@ -114,7 +115,10 @@ public class Main {
           break;
 
         case "3":
-
+          MenuThongKe();
+          break;
+          
+        case "4":
           return true;
 
         case "0":
@@ -127,8 +131,6 @@ public class Main {
       }
     }
   }
-
-
 
 
   //BAN HANGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
@@ -185,7 +187,6 @@ public class Main {
 
           System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
           System.out.println("\n~~> DA THANH TOAN THANH CONG !!! <~~" + Color.RESET);
-         
           System.out.print("Nhan phim bat ki de quay lai trang chu: ");
           ConsoleProgram.INPUT.nextLine();
           return;
@@ -367,8 +368,7 @@ public class Main {
                       + "||  2. Them san pham                      ||\n"
                       + "||  3. Sua san pham                       ||\n"
                       + "||  4. Xoa san pham                       ||\n"
-                      + "||  5. Tim kiem san pham theo ten         ||\n"
-                      + "||  6. Tim kiem san pham theo loai        ||\n"
+                      + "||  5. Tim kiem san pham                  ||\n"
                       + "||  0. Quay lai                           ||\n"
                       + "===========================================");
       System.out.print("~~> Lua chon: ");
@@ -390,149 +390,27 @@ public class Main {
           System.out.print("\nNhan phim bat ki de quay lai: ");
           ConsoleProgram.INPUT.nextLine();
           break;
-
+        
         case "2": 
           MenuThemSanPhamVaoDS();
           break;
+
         case "3":
           MenuSuaSanPhamTrongDS();
           break;
           
         case "4":
-          while (true) {
-            ConsoleProgram.clearConsole();
-            System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
-            System.out.println(Color.Line(41, '=') + " DANH SACH SAN PHAM " + Color.Line(41, '=') + Color.GREEN);
-            System.out.print(Color.Line(100, '-') +
-                "\nSTT\tMA SP\tTEN SP\tLOAI\tGIA\n" +
-                Color.Line(100, '-'));
-
-            ProductManagement.Instance().PrintList();
-
-            System.out.println(Color.Line(100, '-'));
-            System.out.print(Color.RESET);
-
-            System.out.println("\nNhap 0 de quay lai");
-            System.out.print("Nhap STT san pham can xoa: ");
-            int id = input.nextInt();
-            switch (id) {
-              case 0: {
-                return;
-              }
-              default: {
-                ProductManagement.Instance().Delete(id - 1, ENV.pathProduct);
-                System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
-                System.out.print("\n~~> DA XOA THANH CONG !!! <~~" + Color.RESET);
-                try {
-                  Thread.sleep(800);
-                } catch (Exception e) {
-                 
-                }
-              }
-            }
-          }
+          MenuXoaSanPhamTrongDS();
+          break;
+          
         case "5":
-          while (true) {
-            ConsoleProgram.clearConsole();
-            System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
-            System.out.println(Color.Line(41, '=') + " DANH SACH SAN PHAM " + Color.Line(41, '=') + Color.GREEN);
-            System.out.print(Color.Line(100, '-') +
-                "\nSTT\tTEN SP\tLOAI\tGIA\n" +
-                Color.Line(100, '-'));
+          MenuTimKiemSanPhamTrongDS();
+          break;
 
-            ProductManagement.Instance().PrintList();
-
-            System.out.println(Color.Line(100, '-'));
-            System.out.print(Color.RESET);
-
-            System.out.print("\nNhap 0 de quay lai");
-            System.out.print("\nTim kiem theo ten san pham: ");
-            String nameProduct = ConsoleProgram.INPUT.nextLine();
-
-            if (nameProduct.equals("0"))
-              return;
-
-            while (true) {
-              ConsoleProgram.clearConsole();
-              System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
-              System.out.println(Color.Line(41, '=') + " DANH SACH SAN PHAM " + Color.Line(41, '=') + Color.GREEN);
-              System.out.print(Color.Line(100, '-') +
-                "\nSTT\tTEN SP\tLOAI\tGIA\n" +
-                Color.Line(100, '-'));
-
-              List<Product> productList = ProductManagement.Instance().SearchByName(nameProduct);
-              int count = productList.size();
-              System.out.println(Color.YELLOW);
-              if (count == 0) {
-                System.out.println("\n\t\t\t\t\tKHONG CO KET QUA NAO TRUNG KHOP");
-              } else
-                for (int i = 1; i <= count; i++)
-                  System.out.println("[" + i + "]\t" + productList.get(i - 1).Info());
-              System.out.println(Color.RESET);
-
-              System.out.println(Color.Line(100, '-'));
-              System.out.print(Color.RESET);
-
-              System.out.print("\nNhap 0 de quay lai");
-              System.out.print("\nTim kiem theo ten san pham: ");
-              nameProduct = ConsoleProgram.INPUT.nextLine();
-              if (nameProduct.equals("0"))
-                return;
-            }
-          }
-        case "6":
-          while (true) {
-            ConsoleProgram.clearConsole();
-            System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
-            System.out.println(Color.Line(41, '=') + " DANH SACH SAN PHAM " + Color.Line(41, '=') + Color.GREEN);
-            System.out.print(Color.Line(100, '-') +
-                "\nSTT\tMA SP\tTEN SP\tLOAI\tGIA\n" +
-                Color.Line(100, '-'));
-
-            ProductManagement.Instance().PrintList();
-
-            System.out.println(Color.Line(100, '-'));
-            System.out.print(Color.RESET);
-
-            System.out.print("\nNhap 0 de quay lai");
-            System.out.print("\nTim kiem theo loai san pham: ");
-            String categoryProduct = ConsoleProgram.INPUT.nextLine();
-
-            if (categoryProduct.equals("0"))
-              return;
-
-            while (true) {
-              ConsoleProgram.clearConsole();
-              System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
-              System.out.println(Color.Line(41, '=') + " DANH SACH SAN PHAM " + Color.Line(41, '=') + Color.GREEN);
-              System.out.print(Color.Line(100, '-') +
-                "\nSTT\tMA SP\tTEN SP\tLOAI\tGIA\n" +
-                Color.Line(100, '-'));
-
-              List<Product> productList = ProductManagement.Instance().SearchByCategory(categoryProduct);
-              int count = productList.size();
-              System.out.println(Color.YELLOW);
-              if (count == 0) {
-                System.out.println("\n\t\t\t\t\tKHONG CO KET QUA NAO TRUNG KHOP");
-              } else
-                for (int i = 1; i <= count; i++)
-                  System.out.println("[" + i + "]\t" + productList.get(i - 1).Info());
-              System.out.println(Color.RESET);
-
-              System.out.println(Color.Line(100, '-'));
-              System.out.print(Color.RESET);
-
-              System.out.print("\nNhap 0 de quay lai");
-              System.out.print("\nTim kiem theo loai san pham: ");
-              categoryProduct = ConsoleProgram.INPUT.nextLine();
-              if (categoryProduct.equals("0"))
-                return;
-            }
-          }
         case "0":
           return;
+
         default:
-          System.out.println("Vui long chon lai !!!");
           continue;
 
       }
@@ -579,7 +457,7 @@ public class Main {
 
 
       if (index == 0) return;
-      if(index > PersonManagement.Instance().getListSize()) return;
+      if(index > PersonManagement.Instance().getListSize()) continue;
       Product product = ProductManagement.Instance().GetList().get(index - 1);
 
       while (true) {
@@ -623,6 +501,156 @@ public class Main {
     }
   }
 
+  public static void MenuXoaSanPhamTrongDS() {
+    while (true) {
+      ConsoleProgram.clearConsole();
+      System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
+      System.out.println(Color.Line(41, '=') + " DANH SACH SAN PHAM " + Color.Line(41, '=') + Color.GREEN);
+      System.out.print(Color.Line(100, '-') +
+          "\nSTT\tMA SP\tTEN SP\tLOAI\tGIA\n" +
+          Color.Line(100, '-'));
+
+      ProductManagement.Instance().PrintList();
+
+      System.out.println(Color.Line(100, '-'));
+      System.out.print(Color.RESET);
+
+      System.out.println("\nNhap 0 de quay lai");
+      int id = Validate.CheckNumberInt("Nhap STT san pham can xoa: ");
+
+      if(id == 0) return;
+      
+      if(ProductManagement.Instance().Delete(id - 1, ENV.pathProduct)) {
+        System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
+        System.out.print("\n~~> DA XOA THANH CONG !!! <~~" + Color.RESET);
+
+        try {
+          Thread.sleep(800);
+        } catch (Exception e) {}
+      }  
+    }
+  }
+  
+  public static void MenuTimKiemSanPhamTrongDS() {
+    while (true) {
+      ConsoleProgram.clearConsole();
+      System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
+      System.out.println(Color.Line(41, '=') + " DANH SACH SAN PHAM " + Color.Line(41, '=') + Color.GREEN);
+      System.out.print(Color.Line(100, '-') +
+          "\nSTT\tTEN SP\tLOAI\tGIA\n" +
+          Color.Line(100, '-'));
+
+      ProductManagement.Instance().PrintList();
+
+      System.out.println(Color.Line(100, '-'));
+      System.out.print(Color.RESET);
+
+      System.out.println("===========================================\n"
+                      + "||  1. Tim kiem san pham theo ten         ||\n"
+                      + "||  2. Tim kiem san pham theo loai        ||\n"
+                      + "||  3. Tim kiem san pham theo gia         ||\n"
+                      + "||  0. Quay lai                           ||\n"
+                      + "===========================================");
+      System.out.print("~~> Lua chon: ");
+      String line = ConsoleProgram.INPUT.nextLine();
+
+      switch(line) {
+        case "1": {
+          System.out.print("\nTim kiem theo ten san pham: ");
+          String nameProduct = ConsoleProgram.INPUT.nextLine();
+          MenuTimKiemSanPhamTheoTen(nameProduct);
+          break;
+        }
+
+        case "2": {
+          System.out.print("\nTim kiem theo loai san pham: ");
+          String categoryProduct = ConsoleProgram.INPUT.nextLine();
+          MenuTimKiemSanPhamTheoLoai(categoryProduct);
+          break;
+        }
+
+        case "3": {
+
+        }
+
+        case "0":
+          return;
+        
+        default:
+          continue;
+
+      }
+  
+
+      
+    }
+  }
+
+  public static void MenuTimKiemSanPhamTheoTen(String nameProduct) {
+    while (true) {
+      ConsoleProgram.clearConsole();
+      System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
+      System.out.println(Color.Line(41, '=') + " DANH SACH SAN PHAM " + Color.Line(41, '=') + Color.GREEN);
+      System.out.print(Color.Line(100, '-') +
+        "\nSTT\tTEN SP\tLOAI\tGIA\n" +
+        Color.Line(100, '-'));
+
+      List<Product> productList = ProductManagement.Instance().SearchByName(nameProduct);
+      int count = productList.size();
+
+      System.out.println(Color.YELLOW);
+      if (count == 0) {
+        System.out.println("\n\t\t\t\t\tKHONG CO KET QUA NAO TRUNG KHOP");
+      } else
+        for (int i = 1; i <= count; i++)
+          System.out.println("[" + i + "]\t" + productList.get(i - 1).Info());
+          
+      System.out.println(Color.RESET);
+
+      System.out.println(Color.Line(100, '-'));
+      System.out.print(Color.RESET);
+
+      System.out.print("\nNhap 0 de quay lai");
+      System.out.print("\nTim kiem theo ten san pham: ");
+      nameProduct = ConsoleProgram.INPUT.nextLine();
+
+      if (nameProduct.equals("0")) return;
+    }
+  }
+
+  public static void MenuTimKiemSanPhamTheoLoai(String categoryProduct) {
+    while (true) {
+      ConsoleProgram.clearConsole();
+      System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
+      System.out.println(Color.Line(41, '=') + " DANH SACH SAN PHAM " + Color.Line(41, '=') + Color.GREEN);
+      System.out.print(Color.Line(100, '-') +
+        "\nSTT\tMA SP\tTEN SP\tLOAI\tGIA\n" +
+        Color.Line(100, '-'));
+
+      List<Product> productList = ProductManagement.Instance().SearchByCategory(categoryProduct);
+      int count = productList.size();
+      System.out.println(Color.YELLOW);
+
+      if (count == 0) {
+        System.out.println("\n\t\t\t\t\tKHONG CO KET QUA NAO TRUNG KHOP");
+      } else
+        for (int i = 1; i <= count; i++)
+          System.out.println("[" + i + "]\t" + productList.get(i - 1).Info());
+
+      System.out.println(Color.RESET);
+
+      System.out.println(Color.Line(100, '-'));
+      System.out.print(Color.RESET);
+
+      System.out.print("\nNhap 0 de quay lai");
+      System.out.print("\nTim kiem theo loai san pham: ");
+      categoryProduct = ConsoleProgram.INPUT.nextLine();
+
+      if (categoryProduct.equals("0")) return;
+    }
+  }
+
+
 
   public static void MenuQuanLyHoaDon() {
     while (true) {
@@ -659,23 +687,25 @@ public class Main {
           ConsoleProgram.INPUT.nextLine();
           break;
         case "2":
-          MenuBanHang(input);
+          MenuBanHang();
           break;
 
         case "3":
-          MenuSuaBill(input);
+          MenuSuaBill();
           break;
 
         case "4":
-          MenuXoaBill(input);
+          MenuXoaBill();
           break;
+
         case "5":
           
           break;
+
         case "0":
           return;
+
         default:
-          System.out.println("Vui long chon lai !!!");
           continue;
 
       }
@@ -698,75 +728,78 @@ public class Main {
           System.out.println(Color.RESET);
           System.out.println("Nhap 0 de quay lai");
 
-          int stt = Validate.CheckNumber("Stt hoa don can sua: ");
+          int stt = Validate.CheckNumberInt("Stt hoa don can sua: ");
           if(stt == 0) return;
-          System.out.println(BillManagement.Instance().getListSize());
           if(stt > BillManagement.Instance().getListSize()) continue;
 
-          //MenuSuaBillChiTiet(input, stt);
+          MenuSuaBillChiTiet(stt);
           
     }
   }
 
   public static void MenuSuaBillChiTiet(int stt) {
     while(true) {
-          ConsoleProgram.clearConsole();
-          Bill bill = BillManagement.Instance().GetList().get(stt - 1);
-          System.out.println(bill.InfoDetails());
+      ConsoleProgram.clearConsole();
+      Bill bill = BillManagement.Instance().GetList().get(stt - 1);
+      System.out.println(bill.InfoDetails());
 
-          System.out.println("===========================================\n"
-                          + "||  1. Ho ten khach hang                  ||\n"
-                          + "||  2. So dien thoai khach hang           ||\n"
-                          + "||  3. Them san pham                      ||\n"
-                          + "||  4. Sua so luong san pham              ||\n"
-                          + "||  5. Xoa san pham                       ||\n"
-                          + "||  6. Ngay thanh toan                    ||\n"
-                          + "||  0. Quay lai                           ||\n"
-                          + "===========================================");
-          System.out.print("~~> Lua chon muc can sua: ");
-          String line = ConsoleProgram.INPUT.nextLine();
-          switch(line) {
-            case "1": 
-              System.out.print("\nNhap lai ho ten khach hang: ");
-              String customerName = ConsoleProgram.INPUT.nextLine();
-              bill.setCustomerName(customerName);
-              BillManagement.Instance().Update(stt-1, bill, ENV.pathBill);
-              break;
-            case "2": 
-              System.out.print("\nNhap lai sdt khach hang: ");
-              String customerPhone = ConsoleProgram.INPUT.nextLine();
-              bill.setCustomerPhone(customerPhone);
-              BillManagement.Instance().Update(stt-1, bill, ENV.pathBill);
-              break;
-            case "3": 
-              MenuThemSPVaoBill(input, bill);
-              BillManagement.Instance().Update(stt-1, bill, ENV.pathBill);
-              break;
-            case "4": 
-              MenuSuaSLSpTrongBill(input, bill);
-              BillManagement.Instance().Update(stt-1, bill, ENV.pathBill);
-              break;
-            case "5": 
-              MenuXoaSpKhoiBill(input, bill);
-              BillManagement.Instance().Update(stt-1, bill, ENV.pathBill);
-              break;
-            case "6":
-              System.out.println("\nNhap lai ngay thanh toan: ");
-              System.out.print("Ngay: ");
-              int dayOfMonth = input.nextInt();
-              System.out.print("Thang: ");
-              int month = input.nextInt();
-              System.out.print("Nam: ");
-              int year = input.nextInt();
-              ConsoleProgram.INPUT.nextLine();
-              bill.setDate(LocalDate.of(year, month, dayOfMonth));
-              BillManagement.Instance().Update(stt -1, bill, ENV.pathBill);
-              break; 
-            case "0": 
-            return;
+      System.out.println("===========================================\n"
+                      + "||  1. Ho ten khach hang                  ||\n"
+                      + "||  2. So dien thoai khach hang           ||\n"
+                      + "||  3. Them san pham                      ||\n"
+                      + "||  4. Sua so luong san pham              ||\n"
+                      + "||  5. Xoa san pham                       ||\n"
+                      + "||  6. Ngay thanh toan                    ||\n"
+                      + "||  0. Quay lai                           ||\n"
+                      + "===========================================");
+      System.out.print("~~> Lua chon muc can sua: ");
+      String line = ConsoleProgram.INPUT.nextLine();
+      switch(line) {
+        case "1": 
+          System.out.print("\nNhap lai ho ten khach hang: ");
+          String customerName = ConsoleProgram.INPUT.nextLine();
+          bill.setCustomerName(customerName);
+          BillManagement.Instance().Update(stt-1, bill, ENV.pathBill);
+          break;
 
-            default:
-          }
+        case "2": 
+          System.out.print("\nNhap lai sdt khach hang: ");
+          String customerPhone = ConsoleProgram.INPUT.nextLine();
+          bill.setCustomerPhone(customerPhone);
+          BillManagement.Instance().Update(stt-1, bill, ENV.pathBill);
+          break;
+
+        case "3": 
+          MenuThemSPVaoBill(bill);
+          BillManagement.Instance().Update(stt-1, bill, ENV.pathBill);
+          break;
+
+        case "4": 
+          MenuSuaSLSpTrongBill(bill);
+          BillManagement.Instance().Update(stt-1, bill, ENV.pathBill);
+          break;
+
+        case "5": 
+          MenuXoaSpKhoiBill(bill);
+          BillManagement.Instance().Update(stt-1, bill, ENV.pathBill);
+          break;
+          
+        case "6":
+          System.out.println("\nNhap lai ngay thanh toan: ");
+
+          int dayOfMonth = Validate.CheckNumberInt("Ngay: ");
+          int month = Validate.CheckNumberInt("Thang: ");
+          int year = Validate.CheckNumberInt("Nam: ");
+
+          bill.setDate(LocalDate.of(year, month, dayOfMonth));
+          BillManagement.Instance().Update(stt -1, bill, ENV.pathBill);
+          break; 
+
+        case "0": 
+          return;
+
+        default:
+      }
     }
   }
 
@@ -784,24 +817,20 @@ public class Main {
 
       System.out.println(Color.Line(100, '-'));
       System.out.println(Color.RESET);
+
       System.out.println("Nhap 0 de quay lai");
-      System.out.print("Stt hoa don can sua: ");
-      int stt = input.nextInt();
-      ConsoleProgram.INPUT.nextLine();
+      int stt = Validate.CheckNumberInt("Stt hoa don can sua: ");
 
       if(stt == 0) return;
-      BillManagement.Instance().Delete(stt - 1, ENV.pathBill);
 
-      System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
-      System.out.print("\n~~> DA XOA THANH CONG !!! <~~" + Color.RESET);
+      if(BillManagement.Instance().Delete(stt - 1, ENV.pathBill)) {
+        System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
+        System.out.print("\n~~> DA XOA THANH CONG !!! <~~" + Color.RESET);
 
-      try {
-        Thread.sleep(800);
-      } catch (Exception e) {
-       
+        try {
+          Thread.sleep(800);
+        } catch (Exception e) {}
       }
-
-
     }
   }
 
@@ -812,16 +841,16 @@ public class Main {
   public static void MenuQuanLyNhanSu() {
     while (true) {
       ConsoleProgram.clearConsole();
-      System.out.print(Color.BLUE_BACKGROUND);
-      System.out.println("======== UNG DUNG QUAN LY BAN HANG ========" + Color.RESET);
+      System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
+      System.out.println("============= QUAN LY NHAN SU =============" + Color.RESET);
       System.out.println("===========================================\n"
-          + "||  1. Xuat danh sach nhan su            ||\n"
-          + "||  2. Them nhan su                      ||\n"
-          + "||  3. Sua nhan su                       ||\n"
-          + "||  4. Xoa nhan su                       ||\n"
-          + "||  5. Tim kiem nhan su                  ||\n"
-          + "||  0. Quay lai                          ||\n"
-          + "===========================================");
+                      + "||  1. Xuat danh sach nhan su            ||\n"
+                      + "||  2. Them nhan su                      ||\n"
+                      + "||  3. Sua nhan su                       ||\n"
+                      + "||  4. Xoa nhan su                       ||\n"
+                      + "||  5. Tim kiem nhan su                  ||\n"
+                      + "||  0. Quay lai                          ||\n"
+                      + "===========================================");
       System.out.print("~~> Lua chon: ");
       String line = ConsoleProgram.INPUT.nextLine();
 
@@ -843,21 +872,25 @@ public class Main {
           ConsoleProgram.INPUT.nextLine();
           break;
         case "2":
-          MenuThemNhanSu(input);
+          MenuThemNhanSu();
           break;
+
         case "3":
-          MenuSuaNhanSu(input);
+          MenuSuaNhanSu();
           break;
+
         case "4":
-          MenuXoaNhanSu(input);
+          MenuXoaNhanSu();
           break;
+
         case "5":
-          MenuTimKiemNhanSu(input);
+          MenuTimKiemNhanSu();
           break;
+
         case "0":
           return;
+
         default:
-          System.out.println("Vui long chon lai !!!");
           continue;
 
       }
@@ -870,38 +903,25 @@ public class Main {
       System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
       System.out.println("=============== THEM NHAN SU ==============" + Color.RESET);
       System.out.println("===========================================\n"
-          + "||  1. Them mot nhan vien                ||\n"
-          + "||  2. Them mot quan ly                  ||\n"
-          + "||  0. Quay lai.                         ||\n"
-          + "===========================================");
+                        + "||  1. Them mot nhan vien                ||\n"
+                        + "||  2. Them mot quan ly                  ||\n"
+                        + "||  0. Quay lai.                         ||\n"
+                        + "===========================================");
       System.out.print("~~> Lua chon: ");
       String line = ConsoleProgram.INPUT.nextLine();
       switch (line) {
         case "1": {
           System.out.print(Color.GREEN);
           System.out.println("\n--------------- NHAP THONG TIN NHAN VIEN --------------" + Color.RESET);
-          System.out.print(Color.YELLOW + "Tai Khoan: " + Color.RESET);
-          String taiKhoan = ConsoleProgram.INPUT.nextLine();
-
-          System.out.print(Color.YELLOW + "Mat khau: " + Color.RESET);
-          String matKhau = ConsoleProgram.INPUT.nextLine();
-
-          System.out.print(Color.YELLOW + "Ho ten: " + Color.RESET);
-          String hoTen = ConsoleProgram.INPUT.nextLine();
-
-          System.out.print(Color.YELLOW + "Tuoi: " + Color.RESET);
-          int tuoi = input.nextInt();
-          ConsoleProgram.INPUT.nextLine();
-
-          System.out.print(Color.YELLOW + "Gioi tinh (Nam/Nu): " + Color.RESET);
-          String gioiTinh = ConsoleProgram.INPUT.nextLine();
-
-          System.out.print(Color.YELLOW + "So dien thoai: " + Color.RESET);
-          String soDienThoai = ConsoleProgram.INPUT.nextLine();
-
-          System.out.print(Color.YELLOW + "Luong co ban: " + Color.RESET);
-          double salary = input.nextDouble();
-          ConsoleProgram.INPUT.nextLine();
+   
+          String taiKhoan = Validate.CheckEmpty("Tai Khoan: ");
+          String matKhau = Validate.CheckEmpty("Mat khau: ");       
+          String hoTen = Validate.CheckEmpty("Ho ten: ");        
+          int tuoi = Validate.CheckNumberInt("Tuoi: ");       
+          String gioiTinh = Validate.CheckEmpty("Gioi tinh (Nam/Nu): ");
+          String soDienThoai = Validate.CheckEmpty("So dien thoai: ");        
+          double salary = Validate.CheckNumberDouble("Tuoi: ");
+        
 
           Person nhanvien = new Staff(taiKhoan, matKhau, hoTen, tuoi, gioiTinh, soDienThoai, salary);
           PersonManagement.Instance().Add(nhanvien, ENV.pathPerson);
@@ -911,9 +931,7 @@ public class Main {
 
           try {
             Thread.sleep(800);
-          } catch (Exception e) {
-           
-          }
+          } catch (Exception e) {}
 
           break;
         }
@@ -921,32 +939,15 @@ public class Main {
         case "2": {
           System.out.print(Color.GREEN);
           System.out.println("\n--------------- NHAP THONG TIN QUAN LY --------------" + Color.RESET);
-          System.out.print(Color.YELLOW + "Tai Khoan: " + Color.RESET);
-          String taiKhoan = ConsoleProgram.INPUT.nextLine();
+          String taiKhoan = Validate.CheckEmpty("Tai Khoan: ");
+          String matKhau = Validate.CheckEmpty("Mat khau: ");       
+          String hoTen = Validate.CheckEmpty("Ho ten: ");        
+          int tuoi = Validate.CheckNumberInt("Tuoi: ");       
+          String gioiTinh = Validate.CheckEmpty("Gioi tinh (Nam/Nu): ");
+          String soDienThoai = Validate.CheckEmpty("So dien thoai: ");        
+          double salary = Validate.CheckNumberDouble("Luong co ban: ");
+          double salaryBonus = Validate.CheckNumberDouble("Luong thuong: ");
 
-          System.out.print(Color.YELLOW + "Mat khau: " + Color.RESET);
-          String matKhau = ConsoleProgram.INPUT.nextLine();
-
-          System.out.print(Color.YELLOW + "Ho ten: " + Color.RESET);
-          String hoTen = ConsoleProgram.INPUT.nextLine();
-
-          System.out.print(Color.YELLOW + "Tuoi: " + Color.RESET);
-          int tuoi = input.nextInt();
-          ConsoleProgram.INPUT.nextLine();
-
-          System.out.print(Color.YELLOW + "Gioi tinh (Nam/Nu): " + Color.RESET);
-          String gioiTinh = ConsoleProgram.INPUT.nextLine();
-
-          System.out.print(Color.YELLOW + "So dien thoai: " + Color.RESET);
-          String soDienThoai = ConsoleProgram.INPUT.nextLine();
-
-          System.out.print(Color.YELLOW + "Luong co ban: " + Color.RESET);
-          double salary = input.nextDouble();
-          ConsoleProgram.INPUT.nextLine();
-
-          System.out.print(Color.YELLOW + "Luong thuong: " + Color.RESET);
-          double salaryBonus = input.nextDouble();
-          ConsoleProgram.INPUT.nextLine();
 
           Person quanly = new Manager(taiKhoan, matKhau, hoTen, tuoi, gioiTinh, soDienThoai, salary, salaryBonus);
           PersonManagement.Instance().Add(quanly, ENV.pathPerson);
@@ -956,9 +957,7 @@ public class Main {
 
           try {
             Thread.sleep(800);
-          } catch (Exception e) {
-           
-          }
+          } catch (Exception e) {}
 
           break;
         }
@@ -987,28 +986,25 @@ public class Main {
       System.out.print(Color.RESET);
 
       System.out.println("\nNhap 0 de quay lai");
-      System.out.print("Nhan id nhan su can xoa: ");
-      int id = input.nextInt();
-      switch (id) {
-        case 0: {
+      int stt = Validate.CheckNumberInt("Nhap STT nhan su can xoa: ");
 
-          return;
-        }
-        default: {
-          PersonManagement.Instance().Delete(id - 1, ENV.pathPerson);
+     
+      
 
-          System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
-          System.out.print("\n~~> DA XOA THANH CONG !!! <~~" + Color.RESET);
+      if(stt == 0) return;
 
-          try {
-            Thread.sleep(800);
-          } catch (Exception e) {
-           
-          }
+      if(PersonManagement.Instance().Delete(stt - 1, ENV.pathPerson)) {
+        System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
+        System.out.print("\n~~> DA XOA THANH CONG !!! <~~" + Color.RESET);
 
-        }
+        try {
+          Thread.sleep(800);
+        } catch (Exception e) {}
       }
+      
+        
     }
+    
 
   }
 
@@ -1027,14 +1023,13 @@ public class Main {
       System.out.print(Color.RESET);
 
       System.out.println("\nNhap 0 de quay lai");
-      System.out.print("Nhan id nhan su can sua: ");
-      int id = input.nextInt();
-      ConsoleProgram.INPUT.nextLine();
+      int stt = Validate.CheckNumberInt("Nhap STT nhan su can sua: ");
 
-      if (id == 0)
-        return;
 
-      Person person = PersonManagement.Instance().GetList().get(id - 1);
+      if (stt == 0) return;
+      if (stt > PersonManagement.Instance().getListSize()) continue;
+
+      Person person = PersonManagement.Instance().GetList().get(stt - 1);
       double salary = 0;
       double salaryBonus = 0;
 
@@ -1052,46 +1047,45 @@ public class Main {
         System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
         System.out.println("======== THONG TIN NHAN SU MUON SUA ========" + Color.RESET);
         System.out.println("============================================\n"
-            + "||" + Color.GREEN + "  Tai khoan: " + Color.YELLOW + person.getUsername() + "\n" + Color.RESET
-            + "||" + Color.GREEN + "  1. Ho va ten: " + Color.YELLOW + person.getFullName() + "\n" + Color.RESET
-            + "||" + Color.GREEN + "  2. Tuoi: " + Color.YELLOW + person.getAge() + "\n" + Color.RESET
-            + "||" + Color.GREEN + "  3. Gioi tinh: " + Color.YELLOW + person.getGender() + "\n" + Color.RESET
-            + "||" + Color.GREEN + "  4. So dien thoai: " + Color.YELLOW + person.getPhone() + "\n" + Color.RESET
-            + "||" + Color.GREEN + "  5. Luong co ban: " + Color.YELLOW + salary + "\n" + Color.RESET
-            + "||" + Color.GREEN + "  6. Luong thuong (QL): " + Color.YELLOW + salaryBonus + "\n" + Color.RESET
-            + "||" + Color.GREEN + "  0. Quay lai\n"
-            + Color.RESET + "============================================");
+        + "||" + Color.GREEN + "  Tai khoan: " + Color.YELLOW + person.getUsername() + "\n" + Color.RESET
+        + "||" + Color.GREEN + "  1. Ho va ten: " + Color.YELLOW + person.getFullName() + "\n" + Color.RESET
+        + "||" + Color.GREEN + "  2. Tuoi: " + Color.YELLOW + person.getAge() + "\n" + Color.RESET
+        + "||" + Color.GREEN + "  3. Gioi tinh: " + Color.YELLOW + person.getGender() + "\n" + Color.RESET
+        + "||" + Color.GREEN + "  4. So dien thoai: " + Color.YELLOW + person.getPhone() + "\n" + Color.RESET
+        + "||" + Color.GREEN + "  5. Luong co ban: " + Color.YELLOW + salary + "\n" + Color.RESET
+        + "||" + Color.GREEN + "  6. Luong thuong (QL): " + Color.YELLOW + salaryBonus + "\n" + Color.RESET
+        + "||" + Color.GREEN + "  0. Quay lai\n"
+        + Color.RESET + "============================================");
         System.out.print("~~> Lua chon muc de sua: ");
         String line = ConsoleProgram.INPUT.nextLine();
-
+        
         switch (line) {
           case "1": {
-            System.out.print("Nhap lai ho va ten: ");
-            String fullName = ConsoleProgram.INPUT.nextLine();
+            String fullName = Validate.CheckEmpty("Nhap lai ho va ten: ");  
             person.setFullName(fullName);
+            PersonManagement.Instance().Update(stt - 1, person, ENV.pathPerson);
             break;
           }
           case "2": {
-            System.out.print("Nhap lai tuoi: ");
-            int age = input.nextInt();
+            int age = Validate.CheckNumberInt("Nhap lai tuoi: ");  
             person.setAge(age);
+            PersonManagement.Instance().Update(stt - 1, person, ENV.pathPerson);
             break;
           }
           case "3": {
-            System.out.print("Nhap lai gioi tinh (Nam/Nu): ");
-            String gender = ConsoleProgram.INPUT.nextLine();
+            String gender = Validate.CheckEmpty("Nhap lai gioi tinh (Nam/Nu): ");
             person.setGender(gender);
+            PersonManagement.Instance().Update(stt - 1, person, ENV.pathPerson);
             break;
           }
           case "4": {
-            System.out.print("Nhap lai so dien thoai: ");
-            String phone = ConsoleProgram.INPUT.nextLine();
+            String phone = Validate.CheckEmpty("Nhap lai so dien thoai: ");
             person.setPhone(phone);
+            PersonManagement.Instance().Update(stt - 1, person, ENV.pathPerson);
             break;
           }
           case "5": {
-            System.out.print("Nhap lai luong co ban: ");
-            salary = input.nextDouble();
+            salary = Validate.CheckNumberDouble("Nhap lai luong co ban: ");
             if (person instanceof Manager) {
               Manager quanLy = (Manager) person;
               quanLy.setSalary(salary);
@@ -1099,6 +1093,7 @@ public class Main {
               Staff nhanVien = (Staff) person;
               nhanVien.setSalary(salary);
             }
+            PersonManagement.Instance().Update(stt - 1, person, ENV.pathPerson);
             break;
           }
           case "6": {
@@ -1108,18 +1103,18 @@ public class Main {
               System.out.println("Quan ly moi co luong thuong !!!" + Color.RESET);
               System.out.print("Nhan phim bat ky de tiep tuc: ");
               ConsoleProgram.INPUT.nextLine();
+              PersonManagement.Instance().Update(stt - 1, person, ENV.pathPerson);
               break;
             }
 
-            System.out.print("Nhap lai luong thuong: ");
-            salaryBonus = input.nextDouble();
+            salaryBonus = Validate.CheckNumberDouble("Nhap lai luong thuong: ");
             Manager quanLy = (Manager) person;
             quanLy.setSalaryBonus(salaryBonus);
-
+            PersonManagement.Instance().Update(stt - 1, person, ENV.pathPerson);
             break;
           }
+
           case "0":
-            PersonManagement.Instance().Update(id - 1, person, ENV.pathPerson);
             return;
 
           default:
@@ -1147,8 +1142,7 @@ public class Main {
       System.out.print("\nTim kiem theo ho ten nhan su: ");
       String hoTen = ConsoleProgram.INPUT.nextLine();
 
-      if (hoTen.equals("0"))
-        return;
+      if (hoTen.equals("0")) return;
 
       while (true) {
         ConsoleProgram.clearConsole();
@@ -1176,27 +1170,148 @@ public class Main {
         System.out.print("\nTim kiem theo ho ten nhan su: ");
         hoTen = ConsoleProgram.INPUT.nextLine();
 
-        if (hoTen.equals("0"))
-          return;
+        if (hoTen.equals("0")) return;
 
       }
     }
   }
 
 
+  public static void MenuThongKe(){
+    while (true) {
+      ConsoleProgram.clearConsole();
+      System.out.print(Color.BLUE_BACKGROUND);
+      System.out.println("============== THONG KE HOA DON ===============" + Color.RESET);
+      System.out.println("===============================================\n"
+                      + "||  1. Thong ke hoa don ngay/thang/nam       ||\n"
+                      + "||  2. Thong ke hoa don trong ngay hom nay   ||\n"
+                      + "||  3. Thong ke tat ca hoa don               ||\n"
+                      + "||  0. Quay lai                              ||\n"
+                      + "===============================================");
+      System.out.print("~~> Lua chon: ");
+      String line = ConsoleProgram.INPUT.nextLine();
 
+      switch (line) {
+        case "1":
+          ThongKeHoaDonDMY();
+          break;
 
-  public static void clearConsole() {
-    // System.out.println("\033[H\033[2J");
-    // System.out.flush();
-    try {
-      if (System.getProperty("os.name").contains("Windows"))
-        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-      else
-        Runtime.getRuntime().exec("clear");
-    } catch (IOException | Exception ex) {
+        case "2":
+          ThongKeHoaDonHomNay();
+          break;
+
+        case "3":
+          ThongKeTatCa();
+          break;
+
+        case "0":
+          return;
+
+        default:
+          continue;
+
+      }
+    }
+  }
+
+  private static void ThongKeTatCa() {
+    ConsoleProgram.clearConsole();
+    System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
+    System.out.println(Color.Line(41, '=') + " DANH SACH HOA DON " + Color.Line(41, '=') + Color.GREEN);
+    System.out.print(
+      Color.Line(100, '-') +
+      "\nSTT\tKHACHHANG\tSODIENTHOAI\tTONGTIEN\tNGAYTHANHTOAN\n" +
+      Color.Line(100, '-')+Color.RESET);
+
+    List<Bill> listBill = BillManagement.Instance().GetList();
+    int count = listBill.size();
+    int sum = 0;
+
+    System.out.println(Color.YELLOW);
+
+    if (count == 0) 
+      System.out.println("\n\t\t\t\t\tKHONG CO KET QUA NAO TRUNG KHOP");
+    else{
+      for (int i = 1; i <= count; i++){
+        sum += listBill.get(i - 1).SumPrice();
+        System.out.println("[" + i + "]\t" + listBill.get(i - 1).Info());
+      }
     }
 
+    System.out.println(Color.RED);
+    System.out.print("\nTong tat ca hoa don la: "+sum);
+    System.out.println(Color.RESET);
+
+    System.out.print("\nNhap phim bat ky de quay lai: ");
+    ConsoleProgram.INPUT.nextLine();
+  }
+
+  private static void ThongKeHoaDonHomNay() {
+    ConsoleProgram.clearConsole();
+    System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
+    System.out.println(Color.Line(41, '=') + " DANH SACH HOA DON " + Color.Line(41, '=') + Color.GREEN);
+    System.out.print(
+    Color.Line(100, '-') +
+    "\nSTT\tKHACHHANG\tSODIENTHOAI\tTONGTIEN\tNGAYTHANHTOAN\n" +
+    Color.Line(100, '-')+Color.RESET);
+
+    List<Bill> listBill = BillManagement.Instance().getBillToday();
+    int count = listBill.size();
+    int sum = 0;
+
+    System.out.println(Color.YELLOW);
+    if (count == 0) 
+      System.out.println("\n\t\t\t\t\tKHONG CO KET QUA NAO TRUNG KHOP");
+    else{
+      for (int i = 1; i <= count; i++){
+        sum += listBill.get(i - 1).SumPrice();
+        System.out.println("[" + i + "]\t" + listBill.get(i - 1).Info());
+      }
+    }
+
+    System.out.println(Color.RED);
+    System.out.print("\nTong hoa don trong khoang la: "+sum);
+
+    System.out.println(Color.RESET);
+    System.out.print("\nNhap phim bat ky de quay lai: ");
+    ConsoleProgram.INPUT.nextLine();
+  }
+
+  public static void ThongKeHoaDonDMY() {
+    ConsoleProgram.clearConsole();
+    System.out.print("Nhap from (nam/thang/ngay): ");
+    String from = ConsoleProgram.INPUT.nextLine();
+    System.out.print("Nhap to (nam/thang/ngay): ");
+    String to = ConsoleProgram.INPUT.nextLine();
+
+    System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
+    System.out.println(Color.Line(41, '=') + " DANH SACH HOA DON " + Color.Line(41, '=') + Color.GREEN);
+    System.out.print(
+      Color.Line(100, '-') +
+      "\nSTT\tKHACHHANG\tSODIENTHOAI\tTONGTIEN\tNGAYTHANHTOAN\n" +
+      Color.Line(100, '-')+Color.RESET);
+
+    List<Bill> listBill = BillManagement.Instance().getBillByRange(LocalDate.parse(from), LocalDate.parse(to));
+    int count = listBill.size();
+    int sum = 0;
+
+    System.out.println(Color.YELLOW);
+    if (count == 0) 
+      System.out.println("\n\t\t\t\t\tKHONG CO KET QUA NAO TRUNG KHOP");
+    else{
+      for (int i = 1; i <= count; i++){
+        sum += listBill.get(i - 1).SumPrice();
+        System.out.println("[" + i + "]\t" + listBill.get(i - 1).Info());
+      }
+    }
+
+    System.out.println(Color.RED);
+    System.out.print("\nTong hoa don trong khoang la: "+sum);
+
+    System.out.println(Color.RESET);
+    System.out.print("\nNhap phim bat ky de quay lai: ");
+
+    ConsoleProgram.INPUT.nextLine();
   }
 
 

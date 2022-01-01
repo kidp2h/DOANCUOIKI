@@ -17,12 +17,13 @@ public class Validate {
             System.out.print(mess);
             value = ConsoleProgram.INPUT.nextLine();
             if(value.trim().equals("")) isError = true;
+            else isError = false;
 
             if(isError) System.out.println("Gia tri khong duoc de trong !!!");
             
         }while(isError);
 
-        return value;
+        return value.trim();
     }
 
     public static int CheckNumberInt(String mess) {
@@ -31,7 +32,6 @@ public class Validate {
         boolean isError = false;
 
         do {
-            System.out.print(mess);
             value = CheckEmpty(mess);
 
             try {
@@ -41,7 +41,7 @@ public class Validate {
                 isError = true;
             }
 
-            if(isError) System.out.println("Gia tri nay phai la so !!!\nVui long nhap lai !!!");
+            if(isError) System.out.println("Gia tri nay phai la so !!!");
             
         }while(isError);
 
@@ -54,7 +54,6 @@ public class Validate {
         boolean isError = false;
 
         do {
-            System.out.print(mess);
             value = CheckEmpty(mess);
             try {
                 Double.parseDouble(value);
@@ -63,7 +62,7 @@ public class Validate {
                 isError = true;
             }
 
-            if(isError) System.out.println("Gia tri nay phai la so !!!\nVui long nhap lai !!!");
+            if(isError) System.out.println("Gia tri nay phai la so !!!");
             
         }while(isError);
 
