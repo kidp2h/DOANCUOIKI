@@ -12,13 +12,15 @@ public class Bill extends Entity implements Serializable {
     private String customerPhone;
     private LocalDate date;
     private List<BillDetails> list = new ArrayList<>();
+    private int listSize = 0;
 
     public Bill(String customerName, String customerPhone) {
         this.customerName = customerName;
         this.customerPhone = customerPhone;
     }
 
-    public void AddDetails(BillDetails details) {
+    public boolean AddDetails(BillDetails details) {
+
         boolean isExist = false;
         for(int i =0; i<list.size();i++) {
             if(list.get(i).getProduct().getId() == details.getProduct().getId())
@@ -28,16 +30,25 @@ public class Bill extends Entity implements Serializable {
                 list.get(i).setAmount(amount + details.getAmount());
             }
         }
-        if(!isExist) list.add(details);
-        
+        if(!isExist) {
+            list.add(details);
+            listSize++;
+        }
+
+        return true;  
     }
 
-    public void UpdateDetails(int stt, int amount) {
+    public boolean UpdateDetails(int stt, int amount) {
+        if(stt >= listSize) return false;
         list.get(stt).setAmount(amount);
+        return true;
     }
 
-    public void DeleteDetails(int stt) {
+    public boolean DeleteDetails(int stt) {
+        if(stt >= listSize) return false;
         list.remove(stt);
+        listSize--;
+        return true;
     }
 
     public int SumPrice() {

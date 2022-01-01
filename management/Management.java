@@ -3,7 +3,6 @@ package DOANCUOIKI.management;
 import java.util.List;
 import java.io.File;
 import java.util.ArrayList;
-import DOANCUOIKI.ENV;
 import DOANCUOIKI.Entity;
 import DOANCUOIKI.util.Color;
 import DOANCUOIKI.util.RWFile;
@@ -12,10 +11,14 @@ public class Management<T extends Entity> {
   protected List<T> list;
   protected int listSize = 0;
   
+  public int getListSize() {
+    return listSize;
+  }
 
   public List<T> GetList() {
     return list;
   }
+
   public void LoadFile(String path) {
     File file = new File(path);
     try {
@@ -29,23 +32,7 @@ public class Management<T extends Entity> {
     }
   }
 
-  public void Delete(int id,String path) {
-    list.remove(id);
-    listSize--;
-    try {
-      RWFile.writeObject(path, list);
-    } catch (Exception e) {
-    }
-  }
-  public void Update(int id, T obj, String path) {
-    list.set(id, obj);
-    try {
-      RWFile.writeObject(path, list);
-    } catch (Exception e) {
-      
-    }
-  }
-  public void Add(T obj, String path) {
+  public boolean Add(T obj, String path) {
     list.add(obj);
     listSize++;
 
@@ -53,7 +40,37 @@ public class Management<T extends Entity> {
       RWFile.writeObject(path, list);
     } catch (Exception e) {
     }
+
+    return true;
   }
+
+  public boolean Delete(int id,String path) {
+
+    if(id >= listSize) return false;
+    list.remove(id);
+    listSize--;
+
+    try {
+      RWFile.writeObject(path, list);
+    } catch (Exception e) {
+    }
+
+    return true;
+
+  }
+
+  public boolean Update(int id, T obj, String path) {
+    if(id >= listSize) return false;
+    list.set(id, obj);
+
+    try {
+      RWFile.writeObject(path, list);
+    } catch (Exception e) {
+      
+    }
+    return true;
+  }
+ 
   public void PrintList() {
     System.out.println(Color.YELLOW);
     if (listSize == 0) {
