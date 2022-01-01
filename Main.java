@@ -1127,17 +1127,7 @@ public class Main {
   public static void MenuTimKiemNhanSu() {
     while (true) {
       ConsoleProgram.clearConsole();
-      System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
-      System.out.println(Color.Line(41, '=') + " DANH SACH NHAN SU " + Color.Line(41, '=') + Color.GREEN);
-      System.out.print(Color.Line(100, '-') +
-          "\nSTT\tTK  \t HO VA TEN\t   TUOI\t   GT\t  SODIENTHOAI\t  LUONG \tLUONG+\t   CHUC VU\n" +
-          Color.Line(100, '-'));
-
-      PersonManagement.Instance().PrintList();
-
-      System.out.println(Color.Line(100, '-'));
-      System.out.print(Color.RESET);
-
+      PersonTable.Instance().showTable(PersonManagement.Instance().GetList());
       System.out.print("\nNhap 0 de quay lai");
       System.out.print("\nTim kiem theo ho ten nhan su: ");
       String hoTen = ConsoleProgram.INPUT.nextLine();
@@ -1146,25 +1136,9 @@ public class Main {
 
       while (true) {
         ConsoleProgram.clearConsole();
-        System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
-        System.out.println(Color.Line(41, '=') + " DANH SACH NHAN SU " + Color.Line(41, '=') + Color.GREEN);
-        System.out.print(Color.Line(100, '-') +
-            "\nSTT\tTK  \t HO VA TEN\t   TUOI\t   GT\t  SODIENTHOAI\t  LUONG \tLUONG+\t   CHUC VU\n" +
-            Color.Line(100, '-'));
 
         List<Person> personList = PersonManagement.Instance().SearchByName(hoTen);
-        int soLuong = personList.size();
-        System.out.println(Color.YELLOW);
-        if (soLuong == 0) {
-          System.out.println("\n\t\t\t\t\tKHONG CO KET QUA NAO TRUNG KHOP");
-        } else
-          for (int i = 1; i <= soLuong; i++) {
-            System.out.println("[" + i + "]\t" + personList.get(i - 1).Info());
-          }
-        System.out.println(Color.RESET);
-
-        System.out.println(Color.Line(100, '-'));
-        System.out.print(Color.RESET);
+        PersonTable.Instance().showTable(personList);
 
         System.out.print("\nNhap 0 de quay lai");
         System.out.print("\nTim kiem theo ho ten nhan su: ");
@@ -1337,8 +1311,5 @@ public class Main {
       person = null;
 
     } while (isLogin);
-
-   
-
   }
 }
