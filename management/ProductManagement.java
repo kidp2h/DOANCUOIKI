@@ -30,7 +30,8 @@ public class ProductManagement extends Management<Product> implements IManagemen
     .filter(product -> product.getName().toUpperCase().contains(category.toUpperCase()))
     .collect(Collectors.toList());
   }
-  public Boolean checkId(String id){
+  
+  public boolean checkId(String id){
     List<Product> listProduct = list.stream()
     .filter(product -> product.getId().trim().toUpperCase().equals(id.trim().toUpperCase()))
     .collect(Collectors.toList());

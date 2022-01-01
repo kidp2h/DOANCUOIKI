@@ -6,8 +6,8 @@ public interface IManagement<T> {
     void LoadFile(String path);  
     List<T> GetList();
     void PrintList();
-    void Add(T obj, String path);
-    void Update(int id, T obj, String path);
-    void Delete(int id, String path);
+    boolean Add(T obj, String path);
+    boolean Update(int id, T obj, String path);
+    boolean Delete(int id, String path);
     List<T> SearchByName(String name);
 }
