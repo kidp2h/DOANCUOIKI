@@ -9,7 +9,7 @@ import DOANCUOIKI.Person;
 import DOANCUOIKI.util.RWFile;
 import DOANCUOIKI.ENV;
 
-public class PersonManagement extends Management<Person> implements IManagement<Person> {
+public class PersonManagement extends Management<Person> {
 
   private static PersonManagement instance;
 
@@ -25,7 +25,6 @@ public class PersonManagement extends Management<Person> implements IManagement<
     LoadFile(ENV.pathPerson);
   }
   
-  @Override
   public List<Person> SearchByName(String name) {
     return list.stream()
         .filter(nhansu -> nhansu.getFullName().toUpperCase().contains(name.toUpperCase()))

@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import DOANCUOIKI.Bill;
 import DOANCUOIKI.ENV;
 
-public class BillManagement extends Management<Bill> implements IManagement<Bill> {
+public class BillManagement extends Management<Bill>{
 
   private static BillManagement instance;
 
@@ -23,11 +23,6 @@ public class BillManagement extends Management<Bill> implements IManagement<Bill
     LoadFile(ENV.pathBill);
   }
 
-  @Override
-  public List<Bill> SearchByName(String name) {
-    // TODO Auto-generated method stub
-    return null;
-  }
 
   public List<Bill> getBillByRange(LocalDate from, LocalDate to) {
     return list.stream()

@@ -51,7 +51,7 @@ public String getId() {
   public String Info() {
     return
       id+"\t"
-    + name + "\t"
+    + name + "\t\t"
     + category + "\t"
     + price;
   }
