@@ -27,7 +27,6 @@ public class Management<T extends Entity> {
     } catch (Exception e) {
     }
   }
-
   public void Delete(int id,String path) {
     list.remove(id);
     listSize--;

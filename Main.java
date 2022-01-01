@@ -1080,17 +1080,9 @@ public class Main {
   public static void MenuTimKiemNhanSu(Scanner input) {
     while (true) {
       clearConsole();
-      System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
-      System.out.println(Color.Line(41, '=') + " DANH SACH NHAN SU " + Color.Line(41, '=') + Color.GREEN);
-      System.out.print(Color.Line(100, '-') +
-          "\nSTT\tTK  \t HO VA TEN\t   TUOI\t   GT\t  SODIENTHOAI\t  LUONG \tLUONG+\t   CHUC VU\n" +
-          Color.Line(100, '-'));
-
-      PersonManagement.Instance().PrintList();
-
-      System.out.println(Color.Line(100, '-'));
-      System.out.print(Color.RESET);
-
+      System.out.println("cek");
+      PersonTable.Instance().showTable(PersonManagement.Instance().GetList());
+    
       System.out.print("\nNhap 0 de quay lai");
       System.out.print("\nTim kiem theo ho ten nhan su: ");
       String hoTen = input.nextLine();
@@ -1100,25 +1092,28 @@ public class Main {
 
       while (true) {
         clearConsole();
-        System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
-        System.out.println(Color.Line(41, '=') + " DANH SACH NHAN SU " + Color.Line(41, '=') + Color.GREEN);
-        System.out.print(Color.Line(100, '-') +
-            "\nSTT\tTK  \t HO VA TEN\t   TUOI\t   GT\t  SODIENTHOAI\t  LUONG \tLUONG+\t   CHUC VU\n" +
-            Color.Line(100, '-'));
-
+        System.out.println("kec");
         List<Person> personList = PersonManagement.Instance().SearchByName(hoTen);
-        int soLuong = personList.size();
-        System.out.println(Color.YELLOW);
-        if (soLuong == 0) {
-          System.out.println("\n\t\t\t\t\tKHONG CO KET QUA NAO TRUNG KHOP");
-        } else
-          for (int i = 1; i <= soLuong; i++) {
-            System.out.println("[" + i + "]\t" + personList.get(i - 1).Info());
-          }
-        System.out.println(Color.RESET);
+        PersonTable.Instance().showTable(personList);
+        // System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
+        // System.out.println(Color.Line(41, '=') + " DANH SACH NHAN SU " + Color.Line(41, '=') + Color.GREEN);
+        // System.out.print(Color.Line(100, '-') +
+        //     "\nSTT\tTK  \t HO VA TEN\t   TUOI\t   GT\t  SODIENTHOAI\t  LUONG \tLUONG+\t   CHUC VU\n" +
+        //     Color.Line(100, '-'));
 
-        System.out.println(Color.Line(100, '-'));
-        System.out.print(Color.RESET);
+        
+        // int soLuong = personList.size();
+        // System.out.println(Color.YELLOW);
+        // if (soLuong == 0) {
+        //   System.out.println("\n\t\t\t\t\tKHONG CO KET QUA NAO TRUNG KHOP");
+        // } else
+        //   for (int i = 1; i <= soLuong; i++) {
+        //     System.out.println("[" + i + "]\t" + personList.get(i - 1).Info());
+        //   }
+        // System.out.println(Color.RESET);
+
+        // System.out.println(Color.Line(100, '-'));
+        // System.out.print(Color.RESET);
 
         System.out.print("\nNhap 0 de quay lai");
         System.out.print("\nTim kiem theo ho ten nhan su: ");
