@@ -15,8 +15,6 @@ public class BillDetails implements Serializable {
         this.product = product;
     }
 
-    
-
     public int getAmount() {
         return this.amount;
     }
@@ -30,7 +28,7 @@ public class BillDetails implements Serializable {
         this.amount = amount;
     }
 
-    public int Sum() {
+    public double Sum() {
         return product.getPrice() * amount;
     }
 
