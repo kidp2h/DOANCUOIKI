@@ -31,6 +31,17 @@ public class PersonManagement extends Management<Person> {
         .collect(Collectors.toList());
   }
 
+  public boolean CheckUsername(String username) {
+    boolean isExist = false;
+    
+    for(int i =0; i < listSize; i++) {
+      if(list.get(i).getUsername().equals(username))
+      isExist = true;
+    }
+
+    return isExist;
+  }
+
   public Person CheckAccount(String taiKhoan, String matKhau) {
     List<Person> listTemp = list.stream()
         .filter(nhansu -> nhansu.getUsername().equals(taiKhoan) && nhansu.getPassword().equals(matKhau))

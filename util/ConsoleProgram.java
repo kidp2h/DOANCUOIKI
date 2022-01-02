@@ -13,4 +13,26 @@ public class ConsoleProgram {
             Runtime.getRuntime().exec("clear");
         } catch (Exception e) {}
     }
+
+    public static void printMessageNoti(String mess) {
+      System.out.print(Color.BLACK + Color.GREEN_BACKGROUND);
+
+      switch(mess) {
+        case "add": 
+          System.out.print("\n~~> DA THEM THANH CONG !!! <~~" + Color.RESET);
+        break;
+
+        case "update": 
+          System.out.print("\n~~> DA SUA THANH CONG !!! <~~" + Color.RESET);
+        break;
+
+        case "delete": 
+          System.out.print("\n~~> DA XOA THANH CONG !!! <~~" + Color.RESET);
+        break;
+      }
+
+      try {
+        Thread.sleep(800);
+      } catch (Exception e) {}
+    }
 }
