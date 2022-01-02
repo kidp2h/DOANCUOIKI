@@ -26,7 +26,13 @@ public class ProductManagement extends Management<Product> {
   
   public List<Product> SearchByCategory(String category){
     return list.stream()
-    .filter(product -> product.getName().toUpperCase().contains(category.toUpperCase()))
+    .filter(product -> product.getCategory().toUpperCase().contains(category.toUpperCase()))
+    .collect(Collectors.toList());
+  }
+
+  public List<Product> SearchByPrice(double from, double to){
+    return list.stream()
+    .filter(product -> product.getPrice() >= from && product.getPrice() <= to)
     .collect(Collectors.toList());
   }
   

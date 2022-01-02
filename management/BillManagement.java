@@ -24,6 +24,19 @@ public class BillManagement extends Management<Bill>{
   }
 
 
+  public List<Bill> SearchByCustomerName(String customerName) {
+    return list.stream()
+    .filter(bill -> bill.getCustomerName().toUpperCase().contains(customerName.toUpperCase()))
+    .collect(Collectors.toList());
+  }
+
+  public List<Bill> SearchByCustomerPhone(String customerPhone) {
+    return list.stream()
+    .filter(bill -> bill.getCustomerPhone().contains(customerPhone))
+    .collect(Collectors.toList());
+  }
+
+
   public List<Bill> getBillByRange(LocalDate from, LocalDate to) {
     return list.stream()
       .filter(bill -> bill.getDate().isAfter(from) && bill.getDate().isBefore(to))

@@ -2,6 +2,7 @@ package DOANCUOIKI;
 
 import java.util.Scanner;
 
+import DOANCUOIKI.management.PersonManagement;
 import DOANCUOIKI.management.ProductManagement;
 import DOANCUOIKI.util.Color;
 import DOANCUOIKI.util.ConsoleProgram;
@@ -86,6 +87,25 @@ public class Validate {
         }while(isExist);
 
         return idProduct;
+    }
+
+    public static String CheckUsername() {
+        boolean isExist = false;
+        String username;
+        do {
+
+            username = CheckEmpty("Tai Khoan: ");
+            
+            if(PersonManagement.Instance().CheckUsername(username)){
+                System.out.println("Tai khoan da ton tai, nhap lai !!!");
+                isExist = true;
+            } else {
+                isExist = false;
+            }
+            
+        }while(isExist);
+
+        return username;
     }
 
 }
