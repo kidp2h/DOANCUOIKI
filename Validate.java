@@ -1,10 +1,7 @@
 package DOANCUOIKI;
 
-import java.util.Scanner;
-
 import DOANCUOIKI.management.PersonManagement;
 import DOANCUOIKI.management.ProductManagement;
-import DOANCUOIKI.util.Color;
 import DOANCUOIKI.util.ConsoleProgram;
 
 public class Validate {

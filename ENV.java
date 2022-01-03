@@ -1,7 +1,5 @@
 package DOANCUOIKI;
 
-import DOANCUOIKI.util.Color;
-
 public class ENV {
   public static final String pathLogin = "DOANCUOIKI/data/Login.data";
   public static final String pathPerson = "DOANCUOIKI/data/Person.data";

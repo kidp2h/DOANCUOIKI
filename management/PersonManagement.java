@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import DOANCUOIKI.Person;
 import DOANCUOIKI.util.RWFile;
 import DOANCUOIKI.ENV;
-
+@SuppressWarnings("all")
 public class PersonManagement extends Management<Person> {
 
   private static PersonManagement instance;

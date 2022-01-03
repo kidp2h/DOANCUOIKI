@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 import java.util.ArrayList;
 import DOANCUOIKI.ENV;
 import DOANCUOIKI.Product;
-
+@SuppressWarnings("all")
 public class ProductManagement extends Management<Product> {
   private static ProductManagement instance;
 
