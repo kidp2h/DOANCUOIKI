@@ -6,16 +6,16 @@ import java.util.ArrayList;
 import DOANCUOIKI.Entity;
 import DOANCUOIKI.util.Color;
 import DOANCUOIKI.util.RWFile;
-
+@SuppressWarnings("all")
 public class Management<T extends Entity> implements IManagement<T>{
   protected List<T> list;
   protected int listSize = 0;
-  private static Management instance;
-
-  public static Management Instance() {
+  private static Management<? extends Entity> instance;
+  
+  public static <U extends Entity> Management<U> Instance() {
     if (instance == null)
-      instance = new Management();
-    return instance;
+      instance = new Management<U>();
+    return (Management<U>)instance;
   }
 
   public int getListSize() {

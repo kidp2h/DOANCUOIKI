@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import DOANCUOIKI.Bill;
 import DOANCUOIKI.ENV;
-
+@SuppressWarnings("all")
 public class BillManagement extends Management<Bill>{
 
   private static BillManagement instance;
