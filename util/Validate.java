@@ -1,8 +1,7 @@
-package DOANCUOIKI;
+package DOANCUOIKI.util;
 
 import DOANCUOIKI.management.PersonManagement;
 import DOANCUOIKI.management.ProductManagement;
-import DOANCUOIKI.util.ConsoleProgram;
 
 public class Validate {
 
